@@ -113,7 +113,7 @@
  * will override the automatic detection of full base URL and can be
  * useful when generating links from the CLI (e.g. sending emails)
  */
-	//Configure::write('App.fullBaseUrl', 'http://example.com');
+	Configure::write('App.fullBaseUrl', 'http://webshop.sa.muel.be');
 
 /**
  * Web path to the public images directory under webroot.
@@ -222,12 +222,12 @@
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
+	Configure::write('Security.salt', 'ACRMpebWCWS)@PxCcaJagJ^gjBvAF)-3EgfRAA1r');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', '76859309657453542496749683645');
+	Configure::write('Security.cipherSeed', '86928445294906373168045791761545');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
