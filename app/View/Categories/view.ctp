@@ -17,7 +17,7 @@
 					<tbody>
 						<?php
 							foreach($prods as $prod){
-								echo "<tr><td>".$this -> Html -> link($prod['title'], array('controller' => 'products', 'action' => 'view', $prod['id']))."</td><td>€ ".$prod['price']."</td></tr>";
+								echo "<tr><td>".$this -> Html -> link($prod['title'], array('controller' => 'products', 'action' => 'view', $prod['id']))."</td><td><abbr title='EUR'>€</abbr> ".$prod['price']."</td></tr>";
 							}
 						?>
 					</tbody>
