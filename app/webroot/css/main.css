@@ -157,9 +157,15 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+h1 a{
+	color: white;
+	text-decoration: none;
+}
 
-
-
+td{
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 
 
