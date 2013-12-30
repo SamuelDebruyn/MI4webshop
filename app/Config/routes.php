@@ -20,7 +20,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-	Router::connect('/', array('controller' => 'static page', 'action' => 'home'));
+	Router::connect('/', array('controller' => 'static pages', 'action' => 'home'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

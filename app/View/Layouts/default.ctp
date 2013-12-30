@@ -15,7 +15,6 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
- $siteTitle = "SamShack";
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,9 +36,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			
-		</div>
+		<?php echo $this->element('customer_header'); ?>
 		<div id="content">
 
 			<?php echo $this->Session->flash(); ?>
