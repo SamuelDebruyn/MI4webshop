@@ -74,18 +74,18 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid #008500;
+    border-bottom: 20px solid #6F7F4F;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #269926;
+    border-top: 20px solid #A7BF76;
 }
 
 .header-container,
 .footer-container,
 .main aside {
-    background: #00CC00;
+    background: #384027;
 }
 
 .title {
@@ -111,7 +111,7 @@ nav a {
     font-weight: bold;
 
     color: white;
-    background: #008500;
+    background: #6F7F4F;
 }
 
 nav a:hover,
@@ -120,8 +120,8 @@ nav a:visited {
 }
 
 nav a:hover {
-    text-decoration: underline;
-    background: #269926;
+    text-decoration: none;
+    background: #86995E;
 }
 
 /* ==============
@@ -173,6 +173,11 @@ td{
 	font-weight: bold;
 }
 
+li a, a{
+	text-decoration: none;
+	color: #384027;
+	font-weight: bolder;
+}
 
 
 /* ==========================================================================

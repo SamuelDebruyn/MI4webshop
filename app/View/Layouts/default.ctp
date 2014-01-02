@@ -28,8 +28,8 @@
 		<title><?php echo $siteTitle; ?>:
 			<?php echo $title_for_layout; ?></title>
 		<meta name="viewport" content="width=device-width">
-		<?php echo $this -> Html -> css('main');
-		echo $this -> Html -> css('normalize.min');
+		<?php echo $this -> Html -> css('normalize.min');
+		echo $this -> Html -> css('main');
 		echo $this -> fetch('meta');
 		echo $this -> fetch('css');
 		echo $this -> fetch('script');
