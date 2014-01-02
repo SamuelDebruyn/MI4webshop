@@ -40,7 +40,9 @@ class AppController extends Controller {
         	'authError' => "You don't have authorization to view this page. Please sign in first.",
         	'authenticate' => array(
             	'Form' => array(
-                	'fields' => array('username' => 'username', 'password' => 'password')
+                	'passwordHasher' => array(
+                    	'className' => 'Simple'
+                	)
             	)
         	)
         ),
@@ -48,12 +50,15 @@ class AppController extends Controller {
     	'Session'
 	);
 	
-	public $helpers = array('Session');
+	public $helpers = array('Session', 'Html');
 	
 	public $uses = array();
 	
 	public function beforeFilter(){
 		$this->set('siteTitle', 'SamShack');
+		$this->set('loggedIn', $this->Auth->loggedIn());
+		if($this->Auth->loggedIn())
+			$this->set('loggedInUser', $this->Auth->User());
 	}
 	
 }

@@ -1,5 +1,17 @@
 <?php
+    
+    App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+    
     class User extends AppModel{
+    	
+		public function beforeSave(array $options = array()){
+			parent::beforeSave($options);
+			if(!empty($this->data['User']['password'])){
+				$passwordHasher = new SimplePasswordHasher();
+				$this->data['User']['password'] = $passwordHasher->hash($this->data['User']['password']);
+        	}
+        	return true;
+    	}
     	
 		public $validate = array(
 			'username' => array(
@@ -54,9 +66,8 @@
 			),
 			'address' => array(
 				'Please enter a valid address (alphanumeric characters only).' => array(
-					'rule' => 'alphaNumeric',
-					'required' => true,
-					'allowEmpty' => false
+					'rule' => 'notEmpty',
+					'required' => true
 				)
 			)
 		);

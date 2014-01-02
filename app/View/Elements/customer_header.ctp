@@ -4,9 +4,14 @@
 		<nav>
 			<ul>
 				<li><?php echo $this -> Html -> link('Home', array('controller' => 'static pages', 'action' => 'home')); ?></li>
-				<li class="userstatus"><?php
-					echo $this -> Html -> link('Sign in / sign up', array('controller' => 'users', 'action' => 'login'));
-				?></li>
+				<?php
+					if(!$loggedIn){
+						echo "<li>".$this -> Html -> link('Sign in', array('controller' => 'users', 'action' => 'login'))."</li>";
+					}else{
+						echo "<li>".$this -> Html -> link('Your profile', array('controller' => 'users', 'action' => 'home'))."</li>";
+						echo "<li>".$this -> Html -> link('Sign out', array('controller' => 'users', 'action' => 'logout'))."</li>";
+					}					
+				?>
 			</ul>
 		</nav>
 	</header>

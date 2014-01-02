@@ -5,7 +5,6 @@
 			parent::beforeFilter();
 			$this->Auth->allow('home');
 			$this->uses[] = 'Category';
-			$this->helpers[] = 'Html';
 		}
     	
 		public function home(){
