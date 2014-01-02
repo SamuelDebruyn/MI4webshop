@@ -46,9 +46,10 @@
         <div class="main-container">
             <div class="main wrapper clearfix">
 
-                <?php echo $this -> Session -> flash(); ?>
-
-				<?php echo $this -> fetch('content'); ?>
+                <?php
+                	echo $this -> Session -> flash();
+					echo $this -> fetch('content');
+				?>
 
             </div> <!-- #main -->
         </div> <!-- #main-container -->

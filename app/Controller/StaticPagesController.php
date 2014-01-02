@@ -1,8 +1,12 @@
 <?php
     class StaticPagesController extends AppController{
-    	
-		public $uses = array('Category');
-		public $helpers = array('Html');
+		
+		public function beforeFilter(){
+			parent::beforeFilter();
+			$this->Auth->allow('home');
+			$this->uses[] = 'Category';
+			$this->helpers[] = 'Html';
+		}
     	
 		public function home(){
 			$this->set('categories', $this->Category->find('all'));

@@ -1,6 +1,11 @@
 <?php
     class CategoriesController extends AppController{
     	
+		public function beforeFilter(){
+			parent::beforeFilter();
+			$this->Auth->allow('view');
+		}
+    	
 		public function view($id = null){
 			
 			if(!$id)

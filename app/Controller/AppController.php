@@ -31,8 +31,22 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	
-	public $components = array('DebugKit.Toolbar', 'Session');
+	public $components = array(
+    	'Auth' => array(
+        	'loginAction' => array(
+            	'controller' => 'users',
+            	'action' => 'login'
+        	),
+        	'authError' => "You don't have authorization to view this page. Please sign in first.",
+        	'authenticate' => 'Form'
+        ),
+        'DebugKit.Toolbar',
+    	'Session'
+	);
+	
 	public $helpers = array('Session');
+	
+	public $uses = array();
 	
 	public function beforeFilter(){
 		$this->set('siteTitle', 'SamShack');
