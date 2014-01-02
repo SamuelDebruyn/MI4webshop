@@ -10,6 +10,7 @@
     	
 		public function home(){
 			$this->set('categories', $this->Category->find('all'));
+			$this->set('title_for_layout', 'home');
 		}
 		
     }

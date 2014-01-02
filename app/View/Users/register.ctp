@@ -8,6 +8,7 @@
 			?>
 			<fieldset>
 				<legend><?php echo __("Sign up for a new account"); ?></legend>
+				<p><?php echo __("All fields are required."); ?></p>
 				<?php
 					echo $this->Form->input("username", array('label' => 'Username: '));
 					echo $this->Form->input("password", array('label' => 'Password: '));

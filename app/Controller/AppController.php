@@ -38,7 +38,11 @@ class AppController extends Controller {
             	'action' => 'login'
         	),
         	'authError' => "You don't have authorization to view this page. Please sign in first.",
-        	'authenticate' => 'Form'
+        	'authenticate' => array(
+            	'Form' => array(
+                	'fields' => array('username' => 'username', 'password' => 'password')
+            	)
+        	)
         ),
         'DebugKit.Toolbar',
     	'Session'

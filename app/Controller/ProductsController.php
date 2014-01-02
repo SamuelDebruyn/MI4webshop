@@ -17,7 +17,7 @@
 				throw new NotFoundException(__('Invalid product'));
 			
 			$this->set('product', $product);
-			
+			$this->set('title_for_layout', $product['Product']['title']);
 		}
 		
     }

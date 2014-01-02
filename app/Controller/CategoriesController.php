@@ -17,6 +17,7 @@
 				throw new NotFoundException(__('Invalid category'));
 			
 			$this->set('category', $category);
+			$this->set('title_for_layout', $category['Category']['title']);
 			
 		}
 		
