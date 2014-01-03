@@ -29,5 +29,8 @@ App::uses('Model', 'Model');
  *
  * @package       app.Model
  */
-class AppModel extends Model {	
+class AppModel extends Model {
+	public function checkUnique($ignoredData, $fields, $or = true) {
+        return $this->isUnique($fields, $or);
+    }	
 }

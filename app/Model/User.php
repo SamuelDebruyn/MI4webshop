@@ -52,6 +52,9 @@
 				),
 				'Please enter a first name between 1 and 100 characters.' => array(
 					'rule' => array('maxLength', 100)
+				),
+				'There is already an account registered with this name.' => array(
+					'rule' => array('checkUnique', array('first_name', 'last_name'), false)
 				)
 			),
 			'last_name' => array(

@@ -20,6 +20,7 @@
 		public function register(){
 			$this->set('title_for_layout', 'Sign up');
 			if ($this->request->is(array('post', 'put'))) {
+				$this->User->create();
 				if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address', 'password', 'username'))){
 					$id = $this->User->id;
 					$this->request->data['User'] = array_merge(
