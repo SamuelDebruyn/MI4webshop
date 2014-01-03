@@ -3,7 +3,7 @@
 		
 		public function beforeFilter(){
 			parent::beforeFilter();
-			$this->Auth->allow('home');
+			$this->Auth->allow();
 			$this->uses[] = 'Category';
 		}
     	
