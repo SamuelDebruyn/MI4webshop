@@ -20,7 +20,9 @@
 									$this -> Html -> link($productTitles[$prodID], array('controller' => 'products', 'action' => 'view', $prodID)).
 									": <abbr title='EUR'>€</abbr> ".
 									number_format($productPrices[$prodID]*$prodContent['quantity'], 2, ".", " ").
-									" ".$this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'removeProductFromCart', $prodID), array('escape' => false)).
+									" ".
+									$this -> Html -> link($this->Html->image('glyphicons/glyphicons_433_minus.png', array('alt' => 'Diminish quantity', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'lowerProductQuantity', $prodID), array('escape' => false)).
+									$this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'removeProductFromCart', $prodID), array('escape' => false), "Are you sure you want to delete this item from your shopping cart?").
 									"</li>";
 						
 						$catPrice += $productPrices[$prodID]*$prodContent['quantity'];
@@ -34,7 +36,7 @@
 							" (<abbr title='EUR'>€</abbr> ".
 							number_format($catPrice, 2, ".", " ").
 							") - ".
-							$this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'removeCategoryFromCart', $catID), array('escape' => false)).
+							$this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'removeCategoryFromCart', $catID), array('escape' => false), "Are you sure you want to delete all the items in this category from your shopping cart?").
 							"</summary><ul>";
 					
 					foreach($lines as $line)
@@ -43,7 +45,7 @@
 					$totalPrice += $catPrice;
 				}
 				echo __("<h4>Total price: <abbr title='EUR'>€</abbr> ").number_format($totalPrice, 2, ".", " ")."</h4>";
-				echo $this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon'))."Remove all items from shopping cart", array('controller' => 'static pages', 'action' => 'clearCart'), array('escape' => false));
+				echo $this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon'))."Remove all items from shopping cart", array('controller' => 'static pages', 'action' => 'clearCart'), array('escape' => false), "Are you sure you want to empty your shopping cart?");
 			}					
 		?>				
 	</section>

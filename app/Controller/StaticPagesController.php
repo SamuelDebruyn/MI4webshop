@@ -100,5 +100,25 @@
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}
 		
+		public function lowerProductQuantity($prodID){
+			if(!is_numeric($prodID)){
+				$this->Session->setFlash("Unable to remove an instance of this product from your cart.");
+				return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
+			}
+			
+			$cart = $this->Session->read('shoppingCart');
+			$cartCopy = $cart;
+			
+			foreach($cartCopy as $index => $product){
+				if($product['Product']['id'] == $prodID){
+					unset($cart[$index]);
+					break;
+				}	
+			}
+			$this->Session->write('shoppingCart', $cart);
+			$this->Session->setFlash("Succesfully lowered quantity in shopping cart.");
+			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
+		}
+		
     }
 ?>
