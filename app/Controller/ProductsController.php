@@ -40,10 +40,11 @@
 					$cart[] = $product;
 				}
 				$this->Session->write('shoppingCart', $cart);
-				$this->log($qty);
-				unset($this->request->data);
-				$this->Session->setFlash($qty.__(' items were succesfully added to your shopping cart.'));
+				$this->request->data['Product']['quantity'] = 1;
+				$this->Session->setFlash($qty.__(' item(s) were succesfully added to your shopping cart.'));
+				return true;
 			}
+			$this->request->data['Product']['quantity'] = 1;
 		}
 		
     }

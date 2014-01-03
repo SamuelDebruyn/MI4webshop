@@ -3,7 +3,6 @@
 		<h2><?php echo __('Welcome to our webshop!'); ?></h2>
 	</header>
 	<section>
-		<p>This website is work in progress and will probably never go in production mode. Notifications about privacy and cookies will be added later.</p>
 		<h3><?php echo __('Please pick a category from the list below'); ?></h3>
 		<ul>
 	<?php
@@ -14,3 +13,6 @@
 </ul>
 	</section>
 </article>
+<aside>
+	<p>This website is work in progress and will probably never go in production mode. Notifications about privacy and cookies will be added in a future phase.</p>
+</aside>
