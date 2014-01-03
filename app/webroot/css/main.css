@@ -10,6 +10,10 @@ textarea {
     color: #222;
 }
 
+html {
+	-webkit-font-smoothing: antialiased;
+}
+
 body {
     font-size: 1em;
     line-height: 1.4;
@@ -61,7 +65,10 @@ textarea {
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font-size: 16px;
+    line-height: 26px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
 }
 
 .wrapper {
@@ -104,7 +111,7 @@ nav ul {
 
     text-align: center;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 
     color: white;
     background: #6F7F4F;
@@ -167,13 +174,13 @@ td{
 
 .message{
 	color: red;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 li a, a{
 	text-decoration: none;
-	color: #384027;
-	font-weight: bolder;
+	color: #697849;
+	font-weight: 600;
 }
 
 nav li, nav li a, nav a{
@@ -221,7 +228,7 @@ label{
 
 .r-tabs .r-tabs-nav a{
 	color: white;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .r-tabs .r-tabs-tab {
@@ -243,7 +250,7 @@ label{
 
 .r-tabs .r-tabs-accordion-title a{
 	color: white;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .r-tabs .r-tabs-panel.r-tabs-state-active {

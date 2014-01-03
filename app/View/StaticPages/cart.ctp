@@ -12,7 +12,15 @@
 					$catPrice = 0;
 					
 					foreach($catContent as $prodID => $prodContent){
-						$lines[] =  "<li>".$prodContent['quantity']." x ".$this -> Html -> link($productTitles[$prodID], array('controller' => 'products', 'action' => 'view', $prodID)).": <abbr title='EUR'>€</abbr> ".number_format($productPrices[$prodID]*$prodContent['quantity'], 2, ".", " ")."</li>";
+						
+						$lines[] =  "<li>".
+									$prodContent['quantity'].
+									" x ".
+									$this -> Html -> link($productTitles[$prodID], array('controller' => 'products', 'action' => 'view', $prodID)).
+									": <abbr title='EUR'>€</abbr> ".
+									number_format($productPrices[$prodID]*$prodContent['quantity'], 2, ".", " ").
+									"</li>";
+						
 						$catPrice += $productPrices[$prodID]*$prodContent['quantity'];
 					}
 					

@@ -1,5 +1,5 @@
 <?php
-	
+	$this->Html -> css('http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700', null, array('inline' => false));
 	$this -> Minify -> css(array('normalize.min', 'main'), null, array('inline' => false));
 	$this-> Minify -> script(array(
 		'main',
@@ -14,9 +14,11 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 	<!--<![endif]-->
+	<!--[if IE]><![endif]-->
 	<head>
 		<?php echo $this -> Html -> charset(); ?>
 		<title><?php echo $siteTitle.": ".$title_for_layout; ?></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width">
 		<?php
 			echo $this -> fetch('meta');
@@ -47,12 +49,15 @@
                 <h3>&copy; <?php echo $siteTitle . " " . date("Y"); ?></h3>
             </footer>
         </div>
-		<script>
-			var _gaq = [['_setAccount', 'UA-46771571-1'], ['_trackPageview']]; ( function(d, t) {
-					var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-					g.src = '//www.google-analytics.com/ga.js';
-					s.parentNode.insertBefore(g, s)
-				}(document, 'script'));
+        <script>
+			 var _gaq = [['_setAccount', 'UA-46771571-1'], ['_trackPageview']];
+			 (function(d, t) {
+			  var g = d.createElement(t),
+			      s = d.getElementsByTagName(t)[0];
+			  g.async = true;
+			  g.src = '//www.google-analytics.com/ga.js';
+			  s.parentNode.insertBefore(g, s);
+			 })(document, 'script');
 		</script>
 		<?php echo $this -> fetch('script'); ?>
 	</body>

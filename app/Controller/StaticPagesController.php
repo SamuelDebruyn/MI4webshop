@@ -82,17 +82,26 @@
 		}
 		
 		public function removeProductFromCart($prodID){
-			if(!is_numeric($prodID))
+			if(!is_numeric($prodID)){
+				$this->Session->setFlash("Unable to remove this product from your cart.");
 				return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
-			$cart = $this->Session->read('shoppingCart');
-			foreach($cart as $catID => $catContent){
-				if(isset($catContent[$prodID])){
-					unset($cart[$catID][$prodID]);
-					$this->Session->write('shoppingCart', $cart);
-					$this->Session->setFlash("Succesfully removed from shopping cart.");
-					return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
-				}
 			}
+				
+			$cart = $this->Session->read('shoppingCart');
+			
+			$indexesToDelete = array();
+			
+			foreach($cart as $index => $product){
+				if($product['Product']['id'] == $catID)
+					$indexesToDelete[] = $index;
+			}
+			
+			foreach($indexesToDelete as $index){
+				unset($cart[$index]);
+			}
+			
+			$this->Session->setFlash("Succesfully removed from shopping cart.");
+			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}
 		
     }
