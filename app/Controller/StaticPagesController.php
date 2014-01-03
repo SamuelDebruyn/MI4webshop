@@ -12,5 +12,9 @@
 			$this->set('title_for_layout', 'home');
 		}
 		
+		public function cart(){
+			$this->set('title_for_layout', 'shopping cart');
+		}
+		
     }
 ?>

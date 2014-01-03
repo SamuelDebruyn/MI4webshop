@@ -20,7 +20,7 @@
 		public function register(){
 			$this->set('title_for_layout', 'Sign up');
 			if ($this->request->is(array('post', 'put'))) {
-				if($this->User->save($this->request->data)){
+				if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address', 'password', 'username'))){
 					$id = $this->User->id;
 					$this->request->data['User'] = array_merge(
 						$this->request->data['User'],
@@ -37,8 +37,26 @@
 		}
 		
 		public function home(){
+			$this->set('title_for_layout', 'Your profile');
 			$user = $this->User->findById($this->Auth->User('id'));
 			$this->set('userData', $user);
+			
+			$this->log($user);
+			
+			if($this->request->is(array('post', 'put'))) {
+				$this->User->id = $user['User']['id'];
+        		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address'))){
+            		$this->Session->setFlash(__('Your details have been updated.'));
+            		return $this->redirect(array('action' => 'home'));
+        		}else{
+        			$this->Session->setFlash(__('Unable to update your profile information.'));
+        		}
+    		}
+
+    		if (!$this->request->data) {
+        		$this->request->data = $user;
+    		}
+			
 		}
 		
     }

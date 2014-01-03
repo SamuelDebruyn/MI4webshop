@@ -1,0 +1,1 @@
+<?php echo pr($this->Session->read('shoppingCart')); ?>

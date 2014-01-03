@@ -1,8 +1,9 @@
 <?php
 	
-	$this->Html->script('vendor/jquery.responsiveTabs.min', array('inline' => false));
+	$this->Minify->script('vendor/jquery.responsiveTabs.min', array('inline' => false));
 	
-	$user = $userData['User']
+	$user = $userData['User'];
+	$purchases = $userData['Purchase'];
 ?>
 <article>
 	<header>
@@ -15,10 +16,26 @@
 				<li><a href="#tab-2"><?php echo __("Past orders"); ?></a></li>
 			</ul>
 			<div id="tab-1">
-				<?php echo pr($userData['User']); ?>
+				<fieldset>
+					<legend><?php echo __("Edit your profile information"); ?></legend>
+					<?php echo $this->Form->create(); ?>
+				<?php
+					echo $this->Form->input("first_name", array('label' => 'First name: '));
+					echo $this->Form->input("last_name", array('label' => 'Last name: '));
+					echo $this->Form->input("email", array('label' => 'Email address: '));
+					echo $this->Form->input("address", array('label' => 'Address: '));
+					echo $this->Form->end('Save changes');
+				?>
+				</fieldset>
 			</div>
 			<div id="tab-2">
-				<?php echo pr($userData['Purchase']); ?>
+				<?php
+					if(count($purchases) < 1){
+						echo "<p>".__("You haven't made any purchases yet.")."</p>";
+					}else{
+						
+					}
+				?>
 			</div>
 		</div>
 	</section>
@@ -27,7 +44,7 @@
 	$(document).ready(function(){
 		$('.tabsContainer').responsiveTabs({
 			collapsible: true,
-			startCollapsed: true,
+			startCollapsed: false,
 			rotate: false,
 			animation: 'slide'
 		});

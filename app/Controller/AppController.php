@@ -50,15 +50,19 @@ class AppController extends Controller {
     	'Session'
 	);
 	
-	public $helpers = array('Session', 'Html');
+	public $helpers = array('Session', 'Html', 'Minify.Minify');
 	
 	public $uses = array();
 	
 	public function beforeFilter(){
 		$this->set('siteTitle', 'SamShack');
+		
 		$this->set('loggedIn', $this->Auth->loggedIn());
 		if($this->Auth->loggedIn())
 			$this->set('loggedInUser', $this->Auth->User());
+		
+		if(!$this->Session->check('shoppingCart'))
+			$this->Session->write('shoppingCart', array());
 	}
 	
 }

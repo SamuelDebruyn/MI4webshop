@@ -1,7 +1,7 @@
 <?php
 	
-	$this -> Html -> css(array('normalize.min', 'main'), null, array('inline' => false));
-	$this-> Html -> script(array(
+	$this -> Minify -> css(array('normalize.min', 'main'), null, array('inline' => false));
+	$this-> Minify -> script(array(
 		'main',
 		'vendor/modernizr-2.6.2-respond-1.1.0.min'
 	), array('inline' => false));
@@ -16,12 +16,12 @@
 	<!--<![endif]-->
 	<head>
 		<?php echo $this -> Html -> charset(); ?>
-		<title><?php echo $siteTitle.":".$title_for_layout; ?></title>
+		<title><?php echo $siteTitle.": ".$title_for_layout; ?></title>
 		<meta name="viewport" content="width=device-width">
 		<?php
 			echo $this -> fetch('meta');
 			echo $this -> fetch('css');
-			echo $this -> Html -> script('vendor/jquery-1.10.1.min');
+			echo $this -> Minify -> script('vendor/jquery-1.10.2.min');
 		?>
 	</head>
 	<body>

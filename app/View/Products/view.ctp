@@ -8,8 +8,16 @@
 		</details>
 	</header>
 	<section>
-			<p><?php echo $prod['description']; ?></p>
-			<strong><abbr title="EUR">€</abbr> <span id="totalPrice"><?php echo $prod['price']; ?></span></strong>
-			<button><?php echo __("Add to cart"); ?></button>
+		<p><?php echo $prod['description']; ?></p>
+		<strong><abbr title="EUR">€</abbr> <span id="totalPrice"><?php echo number_format($prod['price'], 2, ".", " "); ?></span></strong>
 		</section>
 </article>
+<aside>
+	<h3><?php echo __("Buy"); ?></h3>
+	<p><?php echo __("In stock: ").$prod['stock']; ?></p>
+	<?php
+		echo $this->Form->create();
+		echo $this->Form->input("quantity", array('label' => "Quantity: "));
+		echo $this->Form->end('Add to cart');
+	?>
+</aside>

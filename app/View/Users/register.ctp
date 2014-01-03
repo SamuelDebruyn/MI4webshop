@@ -3,13 +3,11 @@
 		<h1><?php echo __("Sign up"); ?></h1>
 	</header>
 	<section>
-		<?php
-			echo $this->Form->create();
-			?>
 			<fieldset>
 				<legend><?php echo __("Sign up for a new account"); ?></legend>
-				<p><?php echo __("All fields are required."); ?></p>
 				<?php
+					echo $this->Form->create();
+					echo "<p>".__("All fields are required.")."</p>";
 					echo $this->Form->input("username", array('label' => 'Username: '));
 					echo $this->Form->input("password", array('label' => 'Password: '));
 					echo $this->Form->input("first_name", array('label' => 'First name: '));
