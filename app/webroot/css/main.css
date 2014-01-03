@@ -97,7 +97,7 @@ nav ul {
     padding: 0;
 }
 
-nav a {
+    nav a {
     display: block;
     margin-bottom: 10px;
     padding: 15px 0;
@@ -119,6 +119,7 @@ nav a:hover {
     text-decoration: none;
     background: #86995E;
 }
+
 
 /* ==============
     MOBILE: Main
@@ -173,6 +174,10 @@ li a, a{
 	text-decoration: none;
 	color: #384027;
 	font-weight: bolder;
+}
+
+nav li, nav li a, nav a{
+	color: white;
 }
 
 .r-tabs .r-tabs-nav {
@@ -258,7 +263,7 @@ li a, a{
     nav li:last-child a {
         margin-right: 0;
     }
-
+    
 /* ========================
     INTERMEDIATE: IE Fixes
    ======================== */
