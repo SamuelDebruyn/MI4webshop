@@ -88,18 +88,14 @@
 			}
 				
 			$cart = $this->Session->read('shoppingCart');
+			$cartCopy = $cart;
 			
-			$indexesToDelete = array();
-			
-			foreach($cart as $index => $product){
-				if($product['Product']['id'] == $catID)
-					$indexesToDelete[] = $index;
+			foreach($cartCopy as $index => $product){
+				if($product['Product']['id'] == $prodID)
+					unset($cart[$index]);
 			}
-			
-			foreach($indexesToDelete as $index){
-				unset($cart[$index]);
-			}
-			
+
+			$this->Session->write('shoppingCart', $cart);
 			$this->Session->setFlash("Succesfully removed from shopping cart.");
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}

@@ -13,7 +13,12 @@
 		</section>
 </article>
 <aside>
-	<h3><?php echo __("Buy"); ?></h3>
+	<h3>
+		<?php
+			echo $this->Html->image('glyphicons/glyphicons_209_cart_in.png', array('alt' => 'In cart', 'class' => 'glyphicon-white')).
+			__("Buy");
+		?>
+	</h3>
 	<p><?php echo __("In stock: ").$prod['stock']; ?></p>
 	<?php
 		echo $this->Form->create();

@@ -15,6 +15,6 @@
 	</section>
 	<footer>
 		<p><?php echo __("No account yet? Sign up now to enjoy all the benefits! You will be able to keep track of past orders, order the same products again, never have to fill in all your personal details again, receive our newsletter with discounts..."); ?></p>
-		<p><?php echo $this->Html->link('Sign up for a new account', array('controller' => 'users', 'action' => 'register')); ?></p>
+		<p><?php echo $this->Html->link($this->Html->image('glyphicons/glyphicons_006_user_add.png', array('alt' => 'Sign up', 'class' => 'glyphicon')).'Sign up for a new account', array('controller' => 'users', 'action' => 'register'), array('escape' => false)); ?></p>
 	</footer>
 </article>

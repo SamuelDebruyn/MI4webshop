@@ -7,6 +7,7 @@
 			if((count($cartContent) < 1)){
 				echo "<p>".__("Your shopping cart is empty.")."</p>";
 			}else{
+				$totalPrice = 0;
 				foreach($cartContent as $catID => $catContent){
 					$lines = array();
 					$catPrice = 0;
@@ -19,6 +20,7 @@
 									$this -> Html -> link($productTitles[$prodID], array('controller' => 'products', 'action' => 'view', $prodID)).
 									": <abbr title='EUR'>€</abbr> ".
 									number_format($productPrices[$prodID]*$prodContent['quantity'], 2, ".", " ").
+									" ".$this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'removeProductFromCart', $prodID), array('escape' => false)).
 									"</li>";
 						
 						$catPrice += $productPrices[$prodID]*$prodContent['quantity'];
@@ -32,13 +34,16 @@
 							" (<abbr title='EUR'>€</abbr> ".
 							number_format($catPrice, 2, ".", " ").
 							") - ".
-							$this -> Html -> link("Remove from cart", array('controller' => 'static pages', 'action' => 'removeCategoryFromCart', $catID)).
+							$this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon')), array('controller' => 'static pages', 'action' => 'removeCategoryFromCart', $catID), array('escape' => false)).
 							"</summary><ul>";
 					
 					foreach($lines as $line)
 						echo $line;
+					
+					$totalPrice += $catPrice;
 				}
-				echo $this -> Html -> link("Remove all items from shopping cart", array('controller' => 'static pages', 'action' => 'clearCart'));
+				echo __("<h4>Total price: <abbr title='EUR'>€</abbr> ").number_format($totalPrice, 2, ".", " ")."</h4>";
+				echo $this -> Html -> link($this->Html->image('glyphicons/glyphicons_208_cart_out.png', array('alt' => 'Out of cart', 'class' => 'glyphicon'))."Remove all items from shopping cart", array('controller' => 'static pages', 'action' => 'clearCart'), array('escape' => false));
 			}					
 		?>				
 	</section>

@@ -12,8 +12,8 @@
 	<section>
 		<div class="tabsContainer">
 			<ul>
-				<li><a href="#tab-1"><?php echo __("Profile info"); ?></a></li>
-				<li><a href="#tab-2"><?php echo __("Past orders"); ?></a></li>
+				<li><a href="#tab-1"><?php echo $this->Html->image('glyphicons/glyphicons_003_user.png', array('alt' => 'User', 'class' => 'glyphicon-white')).__("Profile info"); ?></a></li>
+				<li><a href="#tab-2"><?php echo $this->Html->image('glyphicons/glyphicons_029_notes_2.png', array('alt' => 'Orders', 'class' => 'glyphicon-white')).__("Past orders"); ?></a></li>
 			</ul>
 			<div id="tab-1">
 				<fieldset>

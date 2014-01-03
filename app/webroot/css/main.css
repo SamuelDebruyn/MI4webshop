@@ -204,6 +204,17 @@ label{
 	margin-right: 5px;
 }
 
+.glyphicon, .glyphicon-white{
+	width: 20px;
+	margin-right: 2px;
+	
+}
+
+.glyphicon-white{
+	-webkit-filter: invert(100%); 
+	filter: invert(100%)
+}
+
 
 @media only screen and (max-width: 768px) {
 	aside{
