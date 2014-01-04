@@ -183,6 +183,10 @@ li a, a{
 	font-weight: 600;
 }
 
+aside a, aside li a{
+	color: white;
+}
+
 nav li, nav li a, nav a{
 	color: white;
 }
