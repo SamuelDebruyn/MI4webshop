@@ -65,7 +65,7 @@
 							$lines[] = "</ul></details></li>";
 							$lines[] = "</ul>";
 							
-							$firstPurchL .= number_format($purchP, 2, ".", " ")."</summary>";
+							$firstPurchL .= number_format($purchP, 2, ".", " ")." - ".$this->Html->link($this->Html->image('glyphicons/glyphicons_209_cart_in.png', array('alt' => 'In cart', 'class' => 'glyphicon'))."Order same products again</summary>", array('controller' => 'purchases', 'action' => 'doOrderAgain', $pKey), array('escape' => false));
 							$lines[] = "</details>";
 							
 							echo $firstPurchL;

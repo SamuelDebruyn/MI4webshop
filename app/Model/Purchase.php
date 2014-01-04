@@ -8,6 +8,7 @@
 		));
 		
 		public $recursive = 2;
+		public $order = "Purchase.modified DESC";
 		
 	}
 ?>

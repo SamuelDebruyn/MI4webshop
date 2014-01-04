@@ -79,7 +79,8 @@
     	
 		public $hasMany = array('Purchase' => array(
 			'className' => 'Purchase',
-			'dependent' => true
+			'dependent' => true,
+			'order' => 'Purchase.modified DESC'
 		));
 		
     }

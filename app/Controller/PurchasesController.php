@@ -37,6 +37,32 @@
 			$this->Session->setFlash("Your order could not be processed. Please try again later.");
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}
+
+		public function doOrderAgain($id = null){
+			
+			if(!$id)
+				throw new NotFoundException( __( 'Invalid purchase'));
+			
+			$purchase = $this->Purchase->findById($id);
+			
+			if(!$purchase)
+				throw new NotFoundException(__('Invalid purchase'));
+			
+			$cart = $this->Session->read('shoppingCart');
+			
+			foreach($purchase['PurchasedProduct'] as $product){
+				$pdDB = $this->Product->findById($product['product_id']);
+				if(!$pdDB)
+					throw new NotFoundException(__('Invalid purchase'));
+				$cart[] = $pdDB;
+			}
+			
+			$this->Session->write('shoppingCart', $cart);
+			$this->Session->setFlash("The ordered products were once again added to your shopping cart.");
+			
+			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
+			
+		}
 		
     }
 ?>
