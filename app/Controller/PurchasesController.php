@@ -22,15 +22,19 @@
 			if($this->Purchase->save($this->Purchase->data, false, array('user_id'))){
 				$cart = $this->Session->read('shoppingCart');
 				foreach($cart as $product){
-					$this->PurchasedProduct->create(array('purchase_id' => $this->Purchase->id, 'product_id' => $product['Product']['id']));
-					$this->PurchasedProduct->save($this->PurchasedProduct->data, false, array('purchase_id', 'product_id'));
 					$currentStock = $this->Product->field('stock', array('Product.id' => $product['Product']['id']));
-					$this->Product->id = $product['Product']['id'];
-					$this->Product->set('stock', $currentStock - 1);
-					$this->Product->save($this->Product->data, false, array('stock'));
+					if($currentStock > 0){
+						$this->Product->id = $product['Product']['id'];
+						$this->Product->set('stock', $currentStock - 1);
+						$this->Product->save($this->Product->data, false, array('stock'));
+						$this->PurchasedProduct->create(array('purchase_id' => $this->Purchase->id, 'product_id' => $product['Product']['id']));
+						$this->PurchasedProduct->save($this->PurchasedProduct->data, false, array('purchase_id', 'product_id'));
+						$this->Session->setFlash('Your order has succesfully been submitted. You will receive an order confirmation via email.');
+					}else{
+						$this->Session->setFlash('Not every product in your shopping cart was in stock. You will receive an order confirmation with more details via email.');
+					}
 				}
 				$this->Session->write('shoppingCart', array());
-				$this->Session->setFlash('Your order has succesfully been submitted. You will receive an order confirmation via email.');
 				return $this->redirect(array('controller' => 'users', 'action' => 'home', 2));
 			}
 			
@@ -50,15 +54,20 @@
 			
 			$cart = $this->Session->read('shoppingCart');
 			
+			$this->Session->setFlash("The ordered products were once again added to your shopping cart.");
+			
 			foreach($purchase['PurchasedProduct'] as $product){
 				$pdDB = $this->Product->findById($product['product_id']);
 				if(!$pdDB)
 					throw new NotFoundException(__('Invalid purchase'));
-				$cart[] = $pdDB;
+				if($pdDB['Product']['stock'] > 0){
+					$cart[] = $pdDB;
+				}else{
+					$this->Session->setFlash('Not all of the previously ordered products were in stock. Please review your order before placing it.');
+				}
 			}
 			
 			$this->Session->write('shoppingCart', $cart);
-			$this->Session->setFlash("The ordered products were once again added to your shopping cart.");
 			
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 			
