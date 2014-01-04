@@ -12,6 +12,8 @@
         	}
         	return true;
     	}
+		
+		public $recursive = 2;
     	
 		public $validate = array(
 			'username' => array(
