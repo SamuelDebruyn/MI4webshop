@@ -12,8 +12,8 @@
 	<section>
 		<div class="tabsContainer">
 			<ul>
-				<li><a href="#tab-1"><?php echo $this->Html->image('glyphicons/glyphicons_003_user.png', array('alt' => 'User', 'class' => 'glyphicon-white')).__("Profile info"); ?></a></li>
-				<li><a href="#tab-2"><?php echo $this->Html->image('glyphicons/glyphicons_029_notes_2.png', array('alt' => 'Orders', 'class' => 'glyphicon-white')).__("Past orders"); ?></a></li>
+				<li><a href="#tab-1" id="t1"><?php echo $this->Html->image('glyphicons/glyphicons_003_user.png', array('alt' => 'User', 'class' => 'glyphicon-white')).__("Profile info"); ?></a></li>
+				<li><a href="#tab-2" id="t2"><?php echo $this->Html->image('glyphicons/glyphicons_029_notes_2.png', array('alt' => 'Orders', 'class' => 'glyphicon-white')).__("Past orders"); ?></a></li>
 			</ul>
 			<div id="tab-1">
 				<fieldset>
@@ -33,7 +33,45 @@
 					if(count($purchases) < 1){
 						echo "<p>".__("You haven't made any purchases yet.")."</p>";
 					}else{
-						
+						foreach($structuredPurchases as $pKey => $purchase){
+							$this->log($purchase);
+							$purchP = 0;
+							$firstPurchL = "<details><summary>".$purchase['date']." - <abbr title='EUR'>€</abbr> ";
+							
+							$lines = array();
+							$lines[] = "<ul><li>Payed: ".$purchase['payed']."</li><li>Shipped: ".$purchase['shipped']."</li><li><details><summary>Products</summary><ul>";
+							foreach($purchase['categories'] as $cKey => $category){
+								$firstCatL = "<details><summary>".$this -> Html -> link($categoryTitles[$cKey], array('controller' => 'categories', 'action' => 'view', $cKey))." - <abbr title='EUR'>€</abbr> ";
+								$catP = 0;
+								$sublines = array();
+								foreach($category as $prodKey => $product){
+									$sublines[] = "<li>";
+									$sublines[] = $product['quantity']." x ";
+									$sublines[] = $this -> Html -> link($productTitles[$prodKey], array('controller' => 'products', 'action' => 'view', $prodKey));
+									$sublines[] = ": <abbr title='EUR'>€</abbr> ";
+									$sublines[] = number_format($productPrices[$prodKey]*$product['quantity'], 2, ".", " ");
+									$sublines[] = "</li>";
+									$catP += $productPrices[$prodKey]*$product['quantity'];
+								}
+								$sublines[] = "</ul></details>";
+								$firstCatL .= number_format($catP, 2, ".", " ");
+								$firstCatL .= "</summary><ul>";
+								$lines[] = $firstCatL;
+								foreach($sublines as $subline){
+									$lines[] = $subline;
+								}
+								$purchP += $catP;
+							}
+							$lines[] = "</ul></details></li>";
+							$lines[] = "</ul>";
+							
+							$firstPurchL .= number_format($purchP, 2, ".", " ")."</summary>";
+							$lines[] = "</details>";
+							
+							echo $firstPurchL;
+							foreach($lines as $line)
+								echo $line;
+						}
 					}
 				?>
 			</div>
@@ -44,9 +82,10 @@
 	$(document).ready(function(){
 		$('.tabsContainer').responsiveTabs({
 			collapsible: true,
-			startCollapsed: false,
+			startCollapsed: true,
 			rotate: false,
 			animation: 'slide'
 		});
+		$('#t<?php echo $tab; ?>').trigger('click');
 	});
 </script>

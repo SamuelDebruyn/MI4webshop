@@ -3,8 +3,9 @@
 		
 		public function beforeFilter(){
 			parent::beforeFilter();
-			$this->Auth->allow();
+			$this->Auth->allow(array('login', 'register', 'logout'));
 			$this->helpers[] = 'Form';
+			$this->uses[] = 'Product';
 		}
     	
 		public function login(){
@@ -37,12 +38,13 @@
 			return $this->redirect($this->Auth->logout());
 		}
 		
-		public function home(){
+		public function home($tab = 1){
 			$this->set('title_for_layout', 'Your profile');
 			$user = $this->User->findById($this->Auth->User('id'));
 			$this->set('userData', $user);
-			
-			$this->log($user);
+			if(!($tab == 1 || $tab == 2))
+				$tab = 1;
+			$this->set('tab', $tab);
 			
 			if($this->request->is(array('post', 'put'))) {
 				$this->User->id = $user['User']['id'];
@@ -57,6 +59,51 @@
     		if (!$this->request->data) {
         		$this->request->data = $user;
     		}
+			
+			$structure = array();
+			$catsWithTitles = array();
+			$productsWithTitles = array();
+			$productsWithPrices = array();
+			
+			foreach($user['Purchase'] as $purchase){
+				$structure[$purchase['id']] = array();;
+				$structure[$purchase['id']]['date'] = $purchase['modified'];
+				$structure[$purchase['id']]['payed'] = "no";
+				if($purchase['payed'])
+					$structure[$purchase['id']]['payed'] = "yes";
+				$structure[$purchase['id']]['shipped'] = "no";
+				if($purchase['shipped'])
+					$structure[$purchase['id']]['shipped'] = "yes";
+				$structure[$purchase['id']]['categories'] = array();
+				
+				foreach($purchase['PurchasedProduct'] as $pid){
+					$product = $this->Product->findById($pid);
+					
+					if(!isset($catsWithTitles[$product['Category']['id']]))
+						$catsWithTitles[$product['Category']['id']] = $product['Category']['title'];
+					
+					if(!isset($productsWithTitles[$product['Product']['id']]))
+						$productsWithTitles[$product['Product']['id']] = $product['Product']['title'];
+					
+					if(!isset($productsWithPrices[$product['Product']['id']]))
+						$productsWithPrices[$product['Product']['id']] = $product['Product']['price'];
+					
+					if(!isset($structure[$purchase['id']]['categories'][$product['Category']['id']]))
+						$structure[$purchase['id']]['categories'][$product['Category']['id']] = array();
+					if(!isset($structure[$purchase['id']]['categories'][$product['Category']['id']][$product['Product']['id']])){
+						$structure[$purchase['id']]['categories'][$product['Category']['id']][$product['Product']['id']] = array();
+						$structure[$purchase['id']]['categories'][$product['Category']['id']][$product['Product']['id']]['quantity'] = 0;
+					}
+					
+					$structure[$purchase['id']]['categories'][$product['Category']['id']][$product['Product']['id']]['quantity']++;
+					
+					}
+			}
+			
+			$this->set('structuredPurchases',$structure);
+			$this->set('categoryTitles', $catsWithTitles);
+			$this->set('productTitles', $productsWithTitles);
+			$this->set('productPrices', $productsWithPrices);
 			
 		}
 		

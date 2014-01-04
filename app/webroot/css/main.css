@@ -284,7 +284,7 @@ label{
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 520px) {
 
 /* ====================
     INTERMEDIATE: Menu
@@ -292,7 +292,7 @@ label{
 
     nav a {
         float: left;
-        width: auto%;
+        width: auto;
         margin: 0 1.7%;
         padding: 25px 2%;
         margin-bottom: 0;
@@ -342,7 +342,7 @@ label{
 
     nav {
         float: right;
-        width: 50%;
+        width: 60%;
     }
 
 /* ============

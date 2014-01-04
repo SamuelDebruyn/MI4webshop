@@ -7,7 +7,7 @@
 			'dependent' => false
 		));
 		
-		public $recursive = 1;
+		public $recursive = 2;
 		
 	}
 ?>
