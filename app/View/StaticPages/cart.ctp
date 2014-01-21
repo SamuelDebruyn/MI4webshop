@@ -4,10 +4,10 @@
 	</header>
 	<section>
 		<?php
+			$totalPrice = 0;
 			if((count($cartContent) < 1)){
 				echo "<p>".__("Your shopping cart is empty.")."</p>";
 			}else{
-				$totalPrice = 0;
 				foreach($cartContent as $catID => $catContent){
 					$lines = array();
 					$catPrice = 0;

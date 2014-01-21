@@ -57,6 +57,11 @@ class AppController extends Controller {
 	public function beforeFilter(){
 		$this->set('siteTitle', 'SamShack');
 		
+		$sAdmin = false;
+		if($this->Auth->User('admin') == 1)
+			$sAdmin = true;
+		$this->set('showAdmin', $sAdmin);
+		
 		$this->set('loggedIn', $this->Auth->loggedIn());
 		if($this->Auth->loggedIn())
 			$this->set('loggedInUser', $this->Auth->User());

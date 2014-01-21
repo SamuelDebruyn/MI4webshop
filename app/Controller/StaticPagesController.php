@@ -8,7 +8,9 @@
 		}
     	
 		public function home(){
-			$this->set('categories', $this->Category->find('all'));
+			$this->set('categories', $this->Category->find('all'), array(
+				'recursive' => -1
+			));
 			$this->set('title_for_layout', 'home');
 		}
 		

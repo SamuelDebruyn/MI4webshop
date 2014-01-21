@@ -283,6 +283,21 @@ label{
     }
 }
 
+.admintable th, .admintable td{
+	border: 1px solid #999;
+}
+
+.admintable{
+	margin-top: 30px;
+}
+
+th[data-sort]{
+    cursor: pointer;
+}
+
+.adminmenu{
+	clear: right;
+}
 
 /* ==========================================================================
    Media Queries

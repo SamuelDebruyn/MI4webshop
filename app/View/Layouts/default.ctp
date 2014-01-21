@@ -40,6 +40,9 @@
                 	echo $this -> Session -> flash();
 					echo $this->Session->flash('auth');
 					echo $this -> fetch('content');
+					if($showAdmin){
+						echo $this->element('admin_menu');
+					}
 				?>
 
             </div> <!-- #main -->

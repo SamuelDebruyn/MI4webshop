@@ -3,7 +3,7 @@
 		
 		public function beforeFilter(){
 			parent::beforeFilter();
-			$this->Auth->allow(array('login', 'register', 'logout'));
+			$this->Auth->allow(array('login', 'register'));
 			$this->helpers[] = 'Form';
 			$this->uses[] = 'Product';
 		}
@@ -38,6 +38,32 @@
 			return $this->redirect($this->Auth->logout());
 		}
 		
+		public function manage_overview(){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'static pages', 'action' => 'home'));
+			}
+			$this->set('users', $this->User->find('all', array(
+				'recursive' => -1
+			)));
+		}
+		
+		public function delete($id) {
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'static pages', 'action' => 'home'));
+			}
+		    if ($this->request->is('get')) {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->User->delete($id)) {
+		        $this->Session->setFlash(
+		            __('The user with id %s has been deleted.', h($id))
+		        );
+		        return $this->redirect(array('action' => 'manage_overview'));
+		    }
+		}
+		
 		public function home($tab = 1){
 			$this->set('title_for_layout', 'Your profile');
 			$user = $this->User->findById($this->Auth->User('id'));
@@ -50,7 +76,6 @@
 				$this->User->id = $user['User']['id'];
         		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address'))){
             		$this->Session->setFlash(__('Your details have been updated.'));
-            		return $this->redirect(array('action' => 'home'));
         		}else{
         			$this->Session->setFlash(__('Unable to update your profile information.'));
         		}
