@@ -3,10 +3,70 @@
 		
 		public function beforeFilter(){
 			parent::beforeFilter();
-			$this->Auth->allow(array('login', 'register'));
+			$this->Auth->allow(array('login', 'register', 'password_reset', 'use_reset_key'));
 			$this->helpers[] = 'Form';
 			$this->uses[] = 'Product';
+			App::uses('CakeEmail', 'Network/Email');
 			$this->components[] = 'Security';
+		}
+		
+		public function password_reset(){
+			$this->set('title_for_layout', 'Reset your password');
+			if($this->Auth->loggedIn())
+				return $this->redirect(array('controller' => 'users', 'action' => 'home'));
+			
+			if($this->request->is('post')){
+				$user = $this->User->find('first', array(
+					'conditions' => array('username' => $this->request->data['User']['username'])
+				));
+				if(!$user)
+					return $this->Session->setFlash(__('We could not find a user with this username.'));
+				
+				$u = $user['User'];
+				
+				$resetCode = Security::hash(mt_rand(),'md5',true);
+				
+				$this->User->id = $u['id'];
+				$this->User->set('reset_key', $resetCode);
+				
+        		if($this->User->save($this->User->data, true, array('reset_key'))){
+        			
+            		$email = new CakeEmail('default');
+					$email->template('password_reset');
+					$email->to($u['email']);
+					$email->viewVars(array(
+						'firstName' => $u['first_name'],
+						'resetCode' => $resetCode
+					));
+					$email->subject('Password reset');
+					
+					if($email->send()){
+						$this->Session->setFlash(__('Please open the link in the email we\'ve sent you to reset your password.'));
+						return $this->redirect(array('controller' => 'static pages', 'action' => 'home')); 
+					}
+        		}else{
+        			$this->Session->setFlash(__('We could not reset your password.'));
+        		}
+			}
+		}
+
+		public function use_reset_key($key = null){
+			if($key){
+				$user = $this->User->find('first', array(
+					'conditions' => array('reset_key' => $key)
+				));
+				if($user){
+					if ($this->Auth->login($user['User'])){
+						$this->User->id = $user['User']['id'];
+						$this->User->set('reset_key', null);
+						$this->User->save($this->User->data, true, array('reset_key'));
+						$this->Session->setFlash(__('You are now logged in. Please change your password in your profile info.'));
+						return $this->redirect(array('controller' => 'users', 'action' => 'home'));
+					}
+				}
+			}
+			$this->Session->setFlash(__('This password reset link is no longer valid.'));
+			return $this->redirect(array('controller' => 'users', 'action' => 'login')); 
 		}
     	
 		public function login(){
@@ -30,7 +90,22 @@
 						array('id' => $id)
 					);
 		        $this->Auth->login($this->request->data['User']);
+				
+				$email = new CakeEmail('default');
+				$email->template('registration');
+				$user = $this->request->data['User'];
+				$email->to($user['email']);
+				$email->viewVars(array(
+					'firstName' => $user['first_name'],
+					'username' => $user['username']
+				));
+				$email->subject('Your registration');
+				if($email->send()){
+					$this->Session->setFlash(__('You are now registered and logged in. We\'ve sent you a confirmation email.'));
+				}
 		        return $this->redirect(array('controller' => 'users', 'action' => 'home'));
+		    	}else{
+		    		return $this->Session->setFlash(__('We experienced a problem during your registration. Please try again later.'));
 		    	}
 			}
 		}
@@ -42,7 +117,7 @@
 		public function manage_overview(){
 			if($this->Auth->User('admin') != 1){
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
-				return $this->redirect(array('controller' => 'static pages', 'action' => 'home'));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
 			$this->set('users', $this->User->find('all', array(
 				'recursive' => -1
@@ -52,7 +127,7 @@
 		public function delete($id) {
 			if($this->Auth->User('admin') != 1){
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
-				return $this->redirect(array('controller' => 'static pages', 'action' => 'home'));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
 		    if ($this->request->is('get')) {
 		        throw new MethodNotAllowedException();
