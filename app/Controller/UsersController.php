@@ -124,6 +124,59 @@
 			)));
 		}
 		
+		public function password_reset_by_admin($id = 0){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+			if($this->request->is('post')){
+				$user = $this->User->findById($id);
+				if($user){
+					
+					$u = $user['User'];
+					
+					$resetCode = Security::hash(mt_rand(),'md5',true);
+					
+					$this->User->id = $u['id'];
+					$this->User->set('reset_key', $resetCode);
+					
+	        		if($this->User->save($this->User->data, true, array('reset_key'))){
+	        			
+	            		$email = new CakeEmail('default');
+						$email->template('password_reset');
+						$email->to($u['email']);
+						$email->viewVars(array(
+							'firstName' => $u['first_name'],
+							'resetCode' => $resetCode
+						));
+						$email->subject('Password reset');
+						
+						if($email->send()){
+							$this->Session->setFlash(__('Password reset link sent to ').$u['email'].".");
+							return $this->redirect(array('action' => 'manage_overview')); 
+						}
+	        		}
+					
+				}
+			}
+			$this->Session->setFlash(__('There was an error sending a password reset link to ').$u['email'].".");
+			return $this->redirect(array('action' => 'manage_overview')); 
+		}
+		
+		public function edit($uID = 0){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+			$user = $this->User->findById($uID);
+			if(!$user){
+				$this->Session->setFlash(__('The user with id %s could not be found.', h($uID)));
+		        return $this->redirect(array('action' => 'manage_overview'));
+			}else{
+				$this->set('reqU', $user['User']);
+			}
+		}
+		
 		public function delete($id) {
 			if($this->Auth->User('admin') != 1){
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));

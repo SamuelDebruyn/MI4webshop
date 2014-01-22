@@ -33,7 +33,29 @@
 						echo "<td>".$u['address']."</td>";
 						echo "<td>".$adm."</td>";
 						echo "<td>".$u['modified']."</td>";
-						echo "<td>".$this->Form->postLink($this->Html->image('glyphicons/glyphicons_007_user_remove.png', array('alt' => 'Delete user', 'class' => 'glyphicon')), array('controller' => 'users', 'action' => 'delete', $u['id']), array('escape' => false, 'confirm' => 'Are you sure you want to remove '.$u['first_name'].'?'))."</td>";
+						echo "<td>";
+						echo $this->Html->link($this->Html->image(
+							'glyphicons/glyphicons_030_pencil.png',
+							array('alt' => 'Edit user', 'class' => 'glyphicon')),
+							array('controller' => 'users', 'action' => 'edit', $u['id']),
+							array('escape' => false)
+						);
+						echo $this->Form->postLink(
+							$this->Html->image(
+								'glyphicons/glyphicons_204_unlock.png',
+								array('alt' => 'Send password reset link', 'class' => 'glyphicon')
+							),
+							array('controller' => 'users', 'action' => 'password_reset_by_admin', $u['id']),
+							array('escape' => false, 'confirm' => 'Are you sure you want to send '.$u['first_name'].' a password request link?'));
+						echo $this->Form->postLink(
+							$this->Html->image(
+								'glyphicons/glyphicons_007_user_remove.png',
+								array('alt' => 'Delete user', 'class' => 'glyphicon')
+							),
+							array('controller' => 'users', 'action' => 'delete', $u['id']),
+							array('escape' => false, 'confirm' => 'Are you sure you want to remove '.$u['first_name'].'?')
+						);
+						echo "</td>";
 						echo "</tr>";
 					}
 				?>
