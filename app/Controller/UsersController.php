@@ -174,6 +174,19 @@
 		        return $this->redirect(array('action' => 'manage_overview'));
 			}else{
 				$this->set('reqU', $user['User']);
+				
+				if (!$this->request->data) {
+	        		$this->request->data = $user;
+	    		}
+				
+				if($this->request->is(array('post', 'put'))) {
+					$this->User->id = $user['User']['id'];
+	        		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'admin', 'address'))){
+	            		$this->Session->setFlash(__('The new details have been saved.'));
+	        		}else{
+	        			$this->Session->setFlash(__('Unable to update profile information.'));
+	        		}
+	    		}
 			}
 		}
 		
