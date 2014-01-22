@@ -35,7 +35,6 @@
 						echo "<p>".__("You haven't made any purchases yet.")."</p>";
 					}else{
 						foreach($structuredPurchases as $pKey => $purchase){
-							$this->log($purchase);
 							$purchP = 0;
 							$firstPurchL = "<details><summary>".$purchase['date']." - <abbr title='EUR'>€</abbr> ";
 							

@@ -5,6 +5,8 @@
 			parent::beforeFilter();
 			$this->uses[] = 'PurchasedProduct';
 			$this->uses[] = 'Product';
+			$this->uses[] = 'User';
+			App::uses('CakeEmail', 'Network/Email');
 		}
     	
 		public function fromCart(){
@@ -35,6 +37,60 @@
 					}
 				}
 				$this->Session->write('shoppingCart', array());
+				
+				$purchase = $this->Purchase->findById($this->Purchase->id);
+								
+				$structure = array();
+				$catsWithTitles = array();
+				$productsWithTitles = array();
+				$productsWithPrices = array();
+				
+				$structure[$purchase['Purchase']['id']] = array();
+				$structure[$purchase['Purchase']['id']]['date'] = $purchase['Purchase']['modified'];
+				$structure[$purchase['Purchase']['id']]['payed'] = "no";
+				if($purchase['Purchase']['payed'])
+					$structure[$purchase['Purchase']['id']]['payed'] = "yes";
+				$structure[$purchase['Purchase']['id']]['shipped'] = "no";
+				if($purchase['Purchase']['shipped'])
+					$structure[$purchase['Purchase']['id']]['shipped'] = "yes";
+				$structure[$purchase['Purchase']['id']]['categories'] = array();
+				
+				foreach($purchase['PurchasedProduct'] as $purchasedProduct){
+					$product = $this->Product->findById($purchasedProduct['product_id']);
+					
+					if(!isset($catsWithTitles[$product['Category']['id']]))
+						$catsWithTitles[$product['Category']['id']] = $product['Category']['title'];
+					
+					if(!isset($productsWithTitles[$product['Product']['id']]))
+						$productsWithTitles[$product['Product']['id']] = $product['Product']['title'];
+					
+					if(!isset($productsWithPrices[$product['Product']['id']]))
+						$productsWithPrices[$product['Product']['id']] = $product['Product']['price'];
+					
+					if(!isset($structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']]))
+						$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']] = array();
+					if(!isset($structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']])){
+						$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']] = array();
+						$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']]['quantity'] = 0;
+					}
+					
+					$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']]['quantity']++;
+					
+					}
+				
+				$email = new CakeEmail('default');
+				$email->template('order_confirmation');
+				$email->to($this->Auth->User('email'));
+				$email->viewVars(array(
+					'structuredPurchases' => $structure,
+					'categoryTitles' => $catsWithTitles,
+					'productTitles' => $productsWithTitles,
+					'productPrices' => $productsWithPrices,
+					'username' => $this->Auth->User('username'),
+					'firstName' => $this->Auth->User('first_name')
+				));
+				$email->subject('Order confirmation');
+				$email->send();				
 				return $this->redirect(array('controller' => 'users', 'action' => 'home', 2));
 			}
 			

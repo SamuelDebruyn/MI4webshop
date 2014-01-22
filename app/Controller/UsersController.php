@@ -234,7 +234,8 @@
 			$productsWithPrices = array();
 			
 			foreach($user['Purchase'] as $purchase){
-				$structure[$purchase['id']] = array();;
+				$this->log($purchase);
+				$structure[$purchase['id']] = array();
 				$structure[$purchase['id']]['date'] = $purchase['modified'];
 				$structure[$purchase['id']]['payed'] = "no";
 				if($purchase['payed'])

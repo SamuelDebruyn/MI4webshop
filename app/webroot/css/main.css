@@ -285,10 +285,14 @@ label{
 
 .admintable th, .admintable td{
 	border: 1px solid #999;
+	font-size: 80%;
+	padding: 5px 5px 5px 5px;
+	margin: none;
 }
 
 .admintable{
 	margin-top: 30px;
+	clear: both;
 }
 
 th[data-sort]{
@@ -297,6 +301,12 @@ th[data-sort]{
 
 .adminmenu{
 	clear: right;
+}
+
+@media only screen and (max-width: 800px){
+	.adminmenu h3:after{
+		content: ": Please use a wider screen for administration purposes.";
+	}
 }
 
 /* ==========================================================================

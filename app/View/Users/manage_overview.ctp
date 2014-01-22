@@ -4,7 +4,7 @@
 <article>
 	<header>
 		<h2><?php echo __("Edit or delete users"); ?></h2>
-		<p><?php echo __("Note that deleting a user will also delete the user's purchase history. Click on a column to sort it."); ?></p>
+		<p><?php echo __("Note that deleting a user will also delete the user's purchase history. Click on a column to sort it. Click on the lock icon to send an email with a link to reset the user's password."); ?></p>
 	</header>
 	<section>
 		<table class="admintable">
@@ -14,7 +14,6 @@
 				<th data-sort="string-ins"><?php echo __('First name'); ?></th>
 				<th data-sort="string-ins"><?php echo __('Last name'); ?></th>
 				<th data-sort="string-ins"><?php echo __('Email'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Address'); ?></th>
 				<th data-sort="string-ins"><?php echo __('Is admin'); ?></th>
 				<th data-sort="string-ins"><?php echo __('Last modified'); ?></th>
 				<th><?php echo __('Actions'); ?></th>
@@ -30,7 +29,6 @@
 						echo "<td>".$u['first_name']."</td>";
 						echo "<td>".$u['last_name']."</td>";
 						echo "<td>".$u['email']."</td>";
-						echo "<td>".$u['address']."</td>";
 						echo "<td>".$adm."</td>";
 						echo "<td>".$u['modified']."</td>";
 						echo "<td>";
