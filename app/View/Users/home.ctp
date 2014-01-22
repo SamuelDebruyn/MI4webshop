@@ -23,6 +23,7 @@
 					echo $this->Form->input("first_name", array('label' => 'First name: '));
 					echo $this->Form->input("last_name", array('label' => 'Last name: '));
 					echo $this->Form->input("email", array('label' => 'Email address: '));
+					echo $this->Form->input("password", array('label' => 'Password: '));
 					echo $this->Form->input("address", array('label' => 'Address: '));
 					echo $this->Form->end('Save changes');
 				?>

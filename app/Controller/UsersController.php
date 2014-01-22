@@ -6,6 +6,7 @@
 			$this->Auth->allow(array('login', 'register'));
 			$this->helpers[] = 'Form';
 			$this->uses[] = 'Product';
+			$this->components[] = 'Security';
 		}
     	
 		public function login(){
@@ -70,11 +71,11 @@
 			$this->set('userData', $user);
 			if(!($tab == 1 || $tab == 2))
 				$tab = 1;
-			$this->set('tab', $tab);
+			$this->set('tab', $tab);			
 			
 			if($this->request->is(array('post', 'put'))) {
 				$this->User->id = $user['User']['id'];
-        		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address'))){
+        		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'password', 'address'))){
             		$this->Session->setFlash(__('Your details have been updated.'));
         		}else{
         			$this->Session->setFlash(__('Unable to update your profile information.'));
@@ -82,6 +83,7 @@
     		}
 
     		if (!$this->request->data) {
+    			$user['User']['password'] = "";
         		$this->request->data = $user;
     		}
 			
