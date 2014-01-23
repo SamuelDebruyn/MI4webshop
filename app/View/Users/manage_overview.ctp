@@ -3,10 +3,11 @@
 ?>
 <article>
 	<header>
-		<h2><?php echo __("Edit or delete users"); ?></h2>
+		<h2><?php echo __("Add, edit or delete users"); ?></h2>
 		<p><?php echo __("Note that deleting a user will also delete the user's purchase history. Click on a column to sort it. Click on the lock icon to send an email with a link to reset the user's password."); ?></p>
 	</header>
 	<section>
+		<?php echo "<p>".$this->Html->link($this->Html->image('glyphicons/glyphicons_006_user_add.png', array('alt' => 'Add user', 'class' => 'glyphicon')).' '.__('Add user'), array('controller' => 'users', 'action' => 'add'), array('escape' => false))."</p>"; ?>
 		<table class="admintable">
 			<thead>
 				<th data-sort="int"><?php echo __('ID'); ?></th>

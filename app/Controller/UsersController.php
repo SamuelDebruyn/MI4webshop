@@ -109,6 +109,22 @@
 		    	}
 			}
 		}
+
+		public function add(){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+			
+			if($this->request->is(array('post', 'put'))){
+				$this->User->create();
+				if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address', 'password', 'username', 'admin'))){
+					$this->Session->setFlash(__('The user %s was succesfully added.', h($this->request->data['User']['username'])));
+					return $this->redirect(array('action' => 'manage_overview')); 
+				}
+				return $this->Session->setFlash(__('Unable to add a new user. Try again later.'));
+			}
+		}
 		
 		public function logout(){
 			return $this->redirect($this->Auth->logout());
@@ -181,7 +197,7 @@
 				
 				if($this->request->is(array('post', 'put'))) {
 					$this->User->id = $user['User']['id'];
-	        		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'admin', 'address'))){
+	        		if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'admin', 'address', 'username'))){
 	            		$this->Session->setFlash(__('The new details have been saved.'));
 	        		}else{
 	        			$this->Session->setFlash(__('Unable to update profile information.'));

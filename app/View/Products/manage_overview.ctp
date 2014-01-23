@@ -21,8 +21,6 @@
 					foreach($products as $product){
 						$p = $product['Product'];
 						$c = $product['Category'];
-						$this->log($p);
-						$this->log($c);
 						echo "<tr>";
 						echo "<td>".$p['id']."</td>";
 						echo "<td>".$p['title']."</td>";

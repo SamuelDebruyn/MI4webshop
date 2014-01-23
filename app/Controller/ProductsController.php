@@ -58,5 +58,17 @@
 			$this->set('products', $products);
 		}
 		
+		public function add(){
+			
+		}
+		
+		public function delete($id = null){
+			
+		}
+		
+		public function edit($id = null){
+			
+		}
+		
     }
 ?>
