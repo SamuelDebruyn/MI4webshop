@@ -62,8 +62,6 @@
 			
 			if(!$category)
 				throw new NotFoundException(__('Invalid category'));
-			
-			$this->set('cat', $category['Category']);
 				
 			if (!$this->request->data) {
 	        		$this->request->data = $category;
@@ -73,11 +71,26 @@
 				$this->Category->id = $category['Category']['id'];
         		if($this->Category->save($this->request->data, true, array('title', 'description'))){
             		$this->Session->setFlash(__('The new details have been saved.'));
-					$this->set('cat', $this->Category->data);
         		}else{
         			$this->Session->setFlash(__('Unable to update category information.'));
         		}
     		}
+		}
+
+		public function add(){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+			
+			if($this->request->is(array('post', 'put'))){
+				$this->Category->create();
+				if($this->Category->save($this->request->data, true, array('title', 'description'))){
+					$this->Session->setFlash(__('The category %s was succesfully added.', h($this->request->data['Category']['title'])));
+					return $this->redirect(array('action' => 'manage_overview')); 
+				}
+				return $this->Session->setFlash(__('Unable to add a new category. Try again later.'));
+			}
 		}
 		
     }
