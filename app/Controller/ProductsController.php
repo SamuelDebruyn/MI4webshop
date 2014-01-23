@@ -46,6 +46,17 @@
 			}
 			$this->request->data['Product']['quantity'] = 1;
 		}
+
+		public function manage_overview(){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+			
+			$products = $this->Product->find('all');
+			
+			$this->set('products', $products);
+		}
 		
     }
 ?>
