@@ -7,6 +7,7 @@
 		<p><?php echo __("Note that deleting a product will also delete it from past orders. It is recommended to change the stock to 0 instead. Click on a column to sort it."); ?></p>
 	</header>
 	<section>
+		<?php echo "<p>".$this->Html->link($this->Html->image('glyphicons/glyphicons_190_circle_plus.png', array('alt' => 'Add product', 'class' => 'glyphicon')).' '.__('Add product'), array('controller' => 'products', 'action' => 'add'), array('escape' => false))."</p>"; ?>
 		<table class="admintable">
 			<thead>
 				<th data-sort="int"><?php echo __('ID'); ?></th>
@@ -28,6 +29,20 @@
 						echo "<td>".number_format($p['price'], 2, ".", "")."</td>";
 						echo "<td>".$p['stock']."</td>";
 						echo "<td>";
+						echo $this->Html->link($this->Html->image(
+							'glyphicons/glyphicons_030_pencil.png',
+							array('alt' => 'Edit product', 'class' => 'glyphicon')),
+							array('controller' => 'products', 'action' => 'edit', $p['id']),
+							array('escape' => false)
+						);
+						echo $this->Form->postLink(
+							$this->Html->image(
+								'glyphicons/glyphicons_016_bin.png',
+								array('alt' => 'Delete product', 'class' => 'glyphicon')
+							),
+							array('controller' => 'products', 'action' => 'delete', $p['id']),
+							array('escape' => false, 'confirm' => 'Are you sure you want to remove '.$p['title'].'?')
+						);
 						echo "</td>";
 						echo "</tr>";
 					}
