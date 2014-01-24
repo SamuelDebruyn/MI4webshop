@@ -115,7 +115,6 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
-			
 			if($this->request->is(array('post', 'put'))){
 				$this->User->create();
 				if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address', 'password', 'username', 'admin'))){
