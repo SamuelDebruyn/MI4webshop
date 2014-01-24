@@ -129,5 +129,42 @@
 			
 		}
 		
+		public function manage_overview(){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+			
+			$purchases = $this->Purchase->find('all', array('recursive' => 0));
+			$this->set('purchases', $purchases);
+		}
+		
+		public function delete($id = null){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+		}
+		
+		public function switch_shipped($id = null){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+		}
+		
+		public function switch_payed($id = null){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+		}
+		
+		public function view($id = null){
+			if($this->Auth->User('admin') != 1){
+				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			}
+		}
     }
 ?>
