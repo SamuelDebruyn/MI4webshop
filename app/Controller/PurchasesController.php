@@ -144,6 +144,18 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			if(!$id)
+				throw new NotFoundException( __( 'Invalid order'));
+				
+			if(!$this->request->is('post'))
+				throw new MethodNotAllowedException(__('Please use a post.'));
+				
+			if(!$this->Purchase->delete($id))
+				throw new NotFoundException(__('Invalid order'));
+				
+			$this->Session->setFlash(__('The order with id %s has been deleted.', h($id)));
+			return $this->redirect(array('action' => 'manage_overview'));
 		}
 		
 		public function switch_shipped($id = null){

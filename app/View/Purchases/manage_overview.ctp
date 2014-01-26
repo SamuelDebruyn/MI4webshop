@@ -45,17 +45,17 @@
 							array('controller' => 'purchases', 'action' => 'view', $p['id']),
 							array('escape' => false)
 						);
-						echo $this->Html->link($this->Html->image(
-							'glyphicons/glyphicons_058_truck.png',
-							array('alt' => 'Ship purchase', 'class' => 'glyphicon')),
-							array('controller' => 'purchases', 'action' => 'switch_shipped', $p['id']),
-							array('escape' => false)
-						);
-						echo $this->Html->link($this->Html->image(
+						echo $this->Form->postLink($this->Html->image(
 							'glyphicons/glyphicons_226_euro.png',
 							array('alt' => 'Pay purchase', 'class' => 'glyphicon')),
 							array('controller' => 'purchases', 'action' => 'switch_payed', $p['id']),
-							array('escape' => false)
+							array('escape' => false, 'confirm' => 'Are you sure you want to mark this order as payed?')
+						);
+						echo $this->Form->postLink($this->Html->image(
+							'glyphicons/glyphicons_058_truck.png',
+							array('alt' => 'Ship purchase', 'class' => 'glyphicon')),
+							array('controller' => 'purchases', 'action' => 'switch_shipped', $p['id']),
+							array('escape' => false, 'confirm' => 'Are you sure you want to mark this order as shipped?')
 						);
 						echo $this->Form->postLink(
 							$this->Html->image(
