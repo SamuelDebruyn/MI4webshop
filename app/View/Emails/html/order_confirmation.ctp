@@ -11,7 +11,7 @@
 		<?php
 		foreach($structuredPurchases as $pKey => $purchase){
 		    $purchP = 0;
-			$firstPurchL = "<details open><summary>".$purchase['date']." - <abbr title='EUR'>€</abbr> ";
+			$firstPurchL = "<details open><summary>".$purchase['date']." - ".__("Order ID ").$pKey." - <abbr title='EUR'>€</abbr> ";
 			
 			$lines = array();
 			$lines[] = "<ul><li>Payed: ".$purchase['payed']."</li><li>Shipped: ".$purchase['shipped']."</li><li><details open><summary>Products</summary><ul>";

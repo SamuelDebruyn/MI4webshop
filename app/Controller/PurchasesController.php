@@ -32,9 +32,9 @@
 						$this->Product->save($this->Product->data, false, array('stock'));
 						$this->PurchasedProduct->create(array('purchase_id' => $this->Purchase->id, 'product_id' => $product['Product']['id']));
 						$this->PurchasedProduct->save($this->PurchasedProduct->data, false, array('purchase_id', 'product_id'));
-						$this->Session->setFlash('Your order has succesfully been submitted. You will receive an order confirmation via email.');
+						$this->Session->setFlash(__('Your order has succesfully been submitted. You will receive an order confirmation via email. Your order ID is %s.', h($this->Purchase->id)));
 					}else{
-						$this->Session->setFlash('Not every product in your shopping cart was in stock. You will receive an order confirmation with more details via email.');
+						$this->Session->setFlash(__('Not every product in your shopping cart was in stock. You will receive an order confirmation with more details via email. Your order ID is %s.', h($this->Purchase->id)));
 					}
 				}
 				$this->Session->write('shoppingCart', array());
@@ -192,7 +192,7 @@
 			$this->Purchase->save($this->Purchase->data, false, array('shipped'));
 			
 			$this->Session->setFlash(__('The order with id %s has been marked as '.$shippedText.'.', h($id)));
-			return $this->redirect(array('action' => 'manage_overview'));
+			return $this->redirect($this->referer());
 		}
 		
 		public function switch_payed($id = null){
@@ -226,7 +226,7 @@
 			$this->Purchase->save($this->Purchase->data, false, array('payed'));
 			
 			$this->Session->setFlash(__('The order with id %s has been marked as '.$payedText.'.', h($id)));
-			return $this->redirect(array('action' => 'manage_overview'));
+			return $this->redirect($this->referer());
 		}
 		
 		public function view($id = null){

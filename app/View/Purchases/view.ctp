@@ -1,6 +1,6 @@
 <article>
 	<header>
-		
+		<h2><?php echo __("View order details"); ?></h2>
 	</header>
 	<section>
 		
@@ -12,8 +12,21 @@
 			
 			$lines = array();
 			$lines[] = "<ul>";
-			$lines[] = "<li>User: ".$this->Html->link($user['first_name']." ".$user['last_name'], array('controller' => 'users', 'action' => 'edit', $user['id']))."</li>";
-			$lines[] = "<li>Payed: ".$purchase['payed']."</li><li>Shipped: ".$purchase['shipped']."</li><li><details open><summary>Products</summary><ul>";
+			$lines[] = "<li>".__("ID").": ".$pKey;
+			$lines[] = "<li>".__("User").": ".$this->Html->link($user['first_name']." ".$user['last_name'], array('controller' => 'users', 'action' => 'edit', $user['id']))."</li>";
+			$lines[] = "<li>".__("Payed").": ";
+			$lines[] = $this->Form->postLink($purchase['payed'].__(" - Change?"),
+							array('controller' => 'purchases', 'action' => 'switch_payed', $pKey),
+							array('escape' => false, 'confirm' => 'Are you sure you want to change the payed status of this order?')
+						);
+			$lines[] = "</li>";
+			$lines[] = "<li>".__("Shipped").": ";
+			$lines[] = $this->Form->postLink($purchase['shipped'].__(" - Change?"),
+							array('controller' => 'purchases', 'action' => 'switch_shipped', $pKey),
+							array('escape' => false, 'confirm' => 'Are you sure you want to change the shipped status of this order?')
+						);
+			$lines[] = "</li>";
+			$lines[] = "<li><details open><summary>".__("Products")."</summary><ul>";
 			foreach($purchase['categories'] as $cKey => $category){
 				$firstCatL = "<details open><summary>".$this -> Html -> link($categoryTitles[$cKey], array('controller' => 'categories', 'action' => 'view', $cKey, 'full_base' => true))." - <abbr title='EUR'>€</abbr> ";
 				$catP = 0;
