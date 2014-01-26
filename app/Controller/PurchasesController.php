@@ -189,9 +189,24 @@
 			
 			$this->Purchase->set('shipped', $shipped);
 			
-			$this->Purchase->save($this->Purchase->data, false, array('shipped'));
+			$this->Session->setFlash(__('The order with id %s could not be marked as '.$shippedText.'. Please try again later.', h($id)));
 			
-			$this->Session->setFlash(__('The order with id %s has been marked as '.$shippedText.'.', h($id)));
+			if($this->Purchase->save($this->Purchase->data, false, array('shipped'))){
+				
+				$email = new CakeEmail('default');
+				$email->template('status');
+				$email->to($purchase['User']['email']);
+				$email->viewVars(array(
+					'newStatus' => $shippedText,
+					'orderID' => $id,
+					'user' => $purchase['User']
+				));
+				$email->subject('Order status');
+				
+				if($email->send())
+					$this->Session->setFlash(__('The order with id %s has been marked as '.$shippedText.'.', h($id)));
+			}		
+			
 			return $this->redirect($this->referer());
 		}
 		
@@ -223,9 +238,24 @@
 			
 			$this->Purchase->set('payed', $payed);
 			
-			$this->Purchase->save($this->Purchase->data, false, array('payed'));
+			$this->Session->setFlash(__('The order with id %s could not be marked as '.$payedText.'. Please try again later.', h($id)));
 			
-			$this->Session->setFlash(__('The order with id %s has been marked as '.$payedText.'.', h($id)));
+			if($this->Purchase->save($this->Purchase->data, false, array('payed'))){
+				
+				$email = new CakeEmail('default');
+				$email->template('status');
+				$email->to($purchase['User']['email']);
+				$email->viewVars(array(
+					'newStatus' => $payedText,
+					'orderID' => $id,
+					'user' => $purchase['User']
+				));
+				$email->subject('Order status');
+				
+				if($email->send())
+					$this->Session->setFlash(__('The order with id %s has been marked as '.$payedText.'.', h($id)));
+			}		
+			
 			return $this->redirect($this->referer());
 		}
 		
