@@ -11,7 +11,7 @@
 		}
 		
 		public function password_reset(){
-			$this->set('title_for_layout', 'Reset your password');
+			$this->set('title_for_layout', __('Reset your password'));
 			if($this->Auth->loggedIn())
 				return $this->redirect(array('controller' => 'users', 'action' => 'home'));
 			
@@ -19,6 +19,7 @@
 				$user = $this->User->find('first', array(
 					'conditions' => array('username' => $this->request->data['User']['username'])
 				));
+				
 				if(!$user)
 					return $this->Session->setFlash(__('We could not find a user with this username.'));
 				
@@ -70,7 +71,7 @@
 		}
     	
 		public function login(){
-			$this->set('title_for_layout', 'Sign in');
+			$this->set('title_for_layout', __('sign in'));
 			if ($this->request->is('post')){
 				if ($this->Auth->login()){
 					return $this->redirect($this->Auth->redirectUrl());
@@ -80,7 +81,7 @@
 		}
 		
 		public function register(){
-			$this->set('title_for_layout', 'Sign up');
+			$this->set('title_for_layout', __('sign up'));
 			if ($this->request->is(array('post', 'put'))) {
 				$this->User->create();
 				if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address', 'password', 'username'))){
@@ -115,6 +116,9 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			$this->set('title_for_layout', __('add new user'));
+			
 			if($this->request->is(array('post', 'put'))){
 				$this->User->create();
 				if($this->User->save($this->request->data, true, array('first_name', 'last_name', 'email', 'address', 'password', 'username', 'admin'))){
@@ -134,12 +138,15 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			$this->set('title_for_layout', __('manage users'));
+			
 			$this->set('users', $this->User->find('all', array(
 				'recursive' => -1
 			)));
 		}
 		
-		public function password_reset_by_admin($id = 0){
+		public function password_reset_by_admin($id = null){
 			if($this->Auth->User('admin') != 1){
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
@@ -183,6 +190,7 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			$this->set('title_for_layout', __('edit user information'));
 			$user = $this->User->findById($uID);
 			if(!$user){
 				$this->Session->setFlash(__('The user with id %s could not be found.', h($uID)));
@@ -210,8 +218,8 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
-		    if ($this->request->is('get')) {
-		        throw new MethodNotAllowedException();
+		    if (!$this->request->is(array('post', 'delete'))) {
+		        throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
 		    }
 		    if ($this->User->delete($id)) {
 		        $this->Session->setFlash(
@@ -222,7 +230,7 @@
 		}
 		
 		public function home($tab = 1){
-			$this->set('title_for_layout', 'Your profile');
+			$this->set('title_for_layout', 'your profile');
 			$user = $this->User->findById($this->Auth->User('id'));
 			$this->set('userData', $user);
 			if(!($tab == 1 || $tab == 2))

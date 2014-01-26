@@ -32,6 +32,7 @@
 					$this->Session->setFlash(__('The entered quantity was invalid.'));
 					return false;
 				}
+				
 				$qty = $this->request->data['Product']['quantity'];
 				if($qty > $product['Product']['stock'])
 					$qty = $product['Product']['stock'];
@@ -39,6 +40,7 @@
 				for($i = 0; $i < $qty; $i++){
 					$cart[] = $product;
 				}
+				
 				$this->Session->write('shoppingCart', $cart);
 				$this->request->data['Product']['quantity'] = 1;
 				$this->Session->setFlash($qty.__(' item(s) were succesfully added to your shopping cart.'));
@@ -55,6 +57,8 @@
 			
 			$products = $this->Product->find('all');
 			
+			$this->set('title_for_layout', __('manage products'));
+			
 			$this->set('products', $products);
 		}
 		
@@ -66,6 +70,7 @@
 			
 			$categories = $this->Product->Category->find('list');
 			$this->set('categories', $categories);
+			$this->set('title_for_layout', __('add product'));
 						
 			if($this->request->is(array('post', 'put'))){
 				$this->Product->create();
@@ -87,7 +92,7 @@
 			if(!$id)
 				throw new NotFoundException( __( 'Invalid product'));
 				
-			if(!$this->request->is('post'))
+			if(!$this->request->is(array('post', 'delete')))
 				throw new MethodNotAllowedException(__('Please use a post.'));
 				
 			if(!$this->Product->delete($id))
@@ -106,6 +111,7 @@
 			
 			$categories = $this->Product->Category->find('list');
 			$this->set('categories', $categories);
+			$this->set('title_for_layout', 'edit product');
 			
 			if(!$id)
 				throw new NotFoundException( __( 'Invalid product'));
@@ -115,11 +121,10 @@
 			if(!$product)
 				throw new NotFoundException(__('Invalid product'));
 				
-			if (!$this->request->data) {
+			if (!$this->request->data)
 	        		$this->request->data = $product;
-	    	}
 			
-			if($this->request->is(array('post', 'put'))) {
+			if($this->request->is('post')) {
 				$this->Product->id = $product['Product']['id'];
         		if($this->Product->save($this->request->data, true, array('title', 'description', 'stock', 'price', 'category_id'))){
             		$this->Session->setFlash(__('The new details have been saved.'));

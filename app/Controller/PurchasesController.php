@@ -12,6 +12,7 @@
 		public function fromCart(){
 			$this->set('title_for_layout', 'place order');
 			$cart = $this->Session->read('shoppingCart');
+			
 			if(count($cart) < 1){
 				$this->Session->setFlash("The shopping cart is still empty.");
 				return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
@@ -90,7 +91,7 @@
 					'firstName' => $this->Auth->User('first_name')
 				));
 				$email->subject('Order confirmation');
-				$email->send();				
+				$email->send();
 				return $this->redirect(array('controller' => 'users', 'action' => 'home', 2));
 			}
 			
@@ -135,6 +136,8 @@
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
 			
+			$this->set('title_for_layout', 'manage orders');
+			
 			$purchases = $this->Purchase->find('all', array('recursive' => 0));
 			$this->set('purchases', $purchases);
 		}
@@ -148,8 +151,8 @@
 			if(!$id)
 				throw new NotFoundException( __( 'Invalid order'));
 				
-			if(!$this->request->is('post'))
-				throw new MethodNotAllowedException(__('Please use a post.'));
+			if(!$this->request->is(array('post', 'delete')))
+				throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
 				
 			if(!$this->Purchase->delete($id))
 				throw new NotFoundException(__('Invalid order'));
@@ -168,7 +171,7 @@
 				throw new NotFoundException( __( 'Invalid order'));
 				
 			if(!$this->request->is('post'))
-				throw new MethodNotAllowedException(__('Please use a post.'));
+				throw new MethodNotAllowedException(__('Please use a post request.'));
 				
 			$purchase = $this->Purchase->findById($id);
 			
@@ -202,7 +205,7 @@
 				throw new NotFoundException( __( 'Invalid order'));
 				
 			if(!$this->request->is('post'))
-				throw new MethodNotAllowedException(__('Please use a post.'));
+				throw new MethodNotAllowedException(__('Please use a post request.'));
 				
 			$purchase = $this->Purchase->findById($id);
 			

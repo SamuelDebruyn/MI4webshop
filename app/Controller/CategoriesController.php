@@ -28,6 +28,7 @@
 			}
 			
 			$this->set('categories', $this->Category->find('all', array('order' => array('title'))));
+			$this->set('title_for_layout', __('manage categories'));
 		}
 		
 		public function delete($id = null){
@@ -39,8 +40,8 @@
 			if(!$id)
 				throw new NotFoundException( __( 'Invalid category'));
 				
-			if(!$this->request->is('post'))
-				throw new MethodNotAllowedException(__('Please use a post.'));
+			if(!$this->request->is(array('post', 'delete')))
+				throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
 				
 			if(!$this->Category->delete($id))
 				throw new NotFoundException(__('Invalid category'));
@@ -63,11 +64,12 @@
 			if(!$category)
 				throw new NotFoundException(__('Invalid category'));
 				
-			if (!$this->request->data) {
+			$this->set('title_for_layout', 'edit category');
+				
+			if (!$this->request->data)
 	        		$this->request->data = $category;
-	    	}
 			
-			if($this->request->is(array('post', 'put'))) {
+			if($this->request->is('post')) {
 				$this->Category->id = $category['Category']['id'];
         		if($this->Category->save($this->request->data, true, array('title', 'description'))){
             		$this->Session->setFlash(__('The new details have been saved.'));
@@ -82,6 +84,8 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			$this->set('title_for_layout', 'add category');
 			
 			if($this->request->is(array('post', 'put'))){
 				$this->Category->create();

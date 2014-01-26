@@ -12,7 +12,7 @@
 				'recursive' => -1,
 				'order' => array('title')
 			)));
-			$this->set('title_for_layout', 'home');
+			$this->set('title_for_layout', __('home'));
 		}
 		
 		public function cart(){
@@ -54,16 +54,25 @@
 		}
 
 		public function clearCart(){
+			
+			if(!$this->request->is(array('post', 'delete')))
+				throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
+			
 			$this->Session->write('shoppingCart', array());
+			$this->Session->setFlash(__('Your shopping cart was cleared.'));
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}
 		
-		public function removeCategoryFromCart($catID){
+		public function removeCategoryFromCart($catID = null){
 			
-			if(!is_numeric($catID)){
-				$this->Session->setFlash("Unable to remove this category from your cart.");
-				return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
-			}			
+			if(!$this->request->is(array('post', 'delete')))
+				throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
+				
+			if(!$catID)
+				throw new NotFoundException( __( 'Invalid category'));
+			
+			if(!is_numeric($catID))
+				throw new NotFoundException( __( 'Invalid category'));
 				
 			$cart = $this->Session->read('shoppingCart');
 			
@@ -84,10 +93,16 @@
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}
 		
-		public function removeProductFromCart($prodID){
+		public function removeProductFromCart($prodID = null){
+			
+			if(!$this->request->is(array('post', 'delete')))
+				throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
+			
+			if(!$prodID)
+				throw new NotFoundException( __( 'Invalid product'));
+			
 			if(!is_numeric($prodID)){
-				$this->Session->setFlash("Unable to remove this product from your cart.");
-				return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
+				throw new NotFoundException( __( 'Invalid product'));
 			}
 				
 			$cart = $this->Session->read('shoppingCart');
@@ -103,10 +118,16 @@
 			return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
 		}
 		
-		public function lowerProductQuantity($prodID){
+		public function lowerProductQuantity($prodID = null){
+				
+			if(!$this->request->is(array('post', 'delete')))
+				throw new MethodNotAllowedException(__('Please use a post or a delete request.'));
+			
+			if(!$prodID)
+				throw new NotFoundException( __( 'Invalid product'));
+			
 			if(!is_numeric($prodID)){
-				$this->Session->setFlash("Unable to remove an instance of this product from your cart.");
-				return $this->redirect(array('controller' => 'static pages', 'action' => 'cart'));
+				throw new NotFoundException( __( 'Invalid product'));
 			}
 			
 			$cart = $this->Session->read('shoppingCart');

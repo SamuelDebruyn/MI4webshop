@@ -19,7 +19,17 @@
 			__("Buy");
 		?>
 	</h3>
-	<p><?php echo __("In stock: ").$prod['stock']; ?></p>
+	
+	<?php
+	
+	$stock = $prod['stock'];
+	if(!$loggedIn){
+		$stock = $this->Html->link('?', array('controller' => 'users', 'action' => 'login'), array('confirm' => __('Please log in to view the current stock.')));
+	}
+	
+	?>
+	
+	<p><?php echo __("In stock: ").$stock; ?></p>
 	<?php
 		echo $this->Form->create();
 		echo $this->Form->input("quantity", array('label' => "Quantity: "));
