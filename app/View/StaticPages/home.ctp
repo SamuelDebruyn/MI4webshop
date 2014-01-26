@@ -14,5 +14,6 @@
 	</section>
 </article>
 <aside>
-	<p>This website is work in progress and will probably never go in production mode. Notifications about privacy and cookies will be added in a future phase.</p>
+	<p>This website uses cookies, has no terms of service and no privacy policy. This is a demo, not a real webshop.</p>
+	<p>The complete source code of this project and more documentation is avalaible at <?php echo $this->Html->link(__('my GitHub repository'), 'https://github.com/SamuelDebruyn/webshop/tree/v1.0.1'); ?>.</p>
 </aside>
