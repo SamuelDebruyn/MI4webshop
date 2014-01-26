@@ -231,6 +231,58 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			if(!$id)
+				throw new NotFoundException( __( 'Invalid order'));
+			
+			$purchase = $this->Purchase->find('first', array('recursive' => 1, 'conditions' => array('Purchase.id' => $id)));
+			
+			if(!$purchase)
+				throw new NotFoundException( __( 'Invalid order'));
+				
+			$structure = array();
+			$catsWithTitles = array();
+			$productsWithTitles = array();
+			$productsWithPrices = array();
+			
+			$structure[$purchase['Purchase']['id']] = array();
+			$structure[$purchase['Purchase']['id']]['date'] = $purchase['Purchase']['modified'];
+			$structure[$purchase['Purchase']['id']]['payed'] = "no";
+			if($purchase['Purchase']['payed'])
+				$structure[$purchase['Purchase']['id']]['payed'] = "yes";
+			$structure[$purchase['Purchase']['id']]['shipped'] = "no";
+			if($purchase['Purchase']['shipped'])
+				$structure[$purchase['Purchase']['id']]['shipped'] = "yes";
+			$structure[$purchase['Purchase']['id']]['categories'] = array();
+			
+			foreach($purchase['PurchasedProduct'] as $purchasedProduct){
+				$product = $this->Product->findById($purchasedProduct['product_id']);
+				
+				if(!isset($catsWithTitles[$product['Category']['id']]))
+					$catsWithTitles[$product['Category']['id']] = $product['Category']['title'];
+				
+				if(!isset($productsWithTitles[$product['Product']['id']]))
+					$productsWithTitles[$product['Product']['id']] = $product['Product']['title'];
+				
+				if(!isset($productsWithPrices[$product['Product']['id']]))
+					$productsWithPrices[$product['Product']['id']] = $product['Product']['price'];
+				
+				if(!isset($structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']]))
+					$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']] = array();
+				if(!isset($structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']])){
+					$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']] = array();
+					$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']]['quantity'] = 0;
+				}
+				
+				$structure[$purchase['Purchase']['id']]['categories'][$product['Category']['id']][$product['Product']['id']]['quantity']++;
+				
+				}
+			
+			$this->set('user', $purchase['User']);
+			$this->set('structuredPurchases', $structure);
+			$this->set('categoryTitles', $catsWithTitles);
+			$this->set('productTitles', $productsWithTitles);
+			$this->set('productPrices', $productsWithPrices);
 		}
     }
 ?>
