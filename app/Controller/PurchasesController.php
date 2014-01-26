@@ -163,6 +163,33 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			if(!$id)
+				throw new NotFoundException( __( 'Invalid order'));
+				
+			if(!$this->request->is('post'))
+				throw new MethodNotAllowedException(__('Please use a post.'));
+				
+			$purchase = $this->Purchase->findById($id);
+			
+			if(!$purchase)
+				throw new NotFoundException( __( 'Invalid order'));
+			
+			$shipped = false;
+			$shippedText = "not shipped yet";
+			if(!$purchase['Purchase']['shipped']){
+				$shipped = true;
+				$shippedText = "shipped";
+			}
+			
+			$this->Purchase->id = $id;
+			
+			$this->Purchase->set('shipped', $shipped);
+			
+			$this->Purchase->save($this->Purchase->data, false, array('shipped'));
+			
+			$this->Session->setFlash(__('The order with id %s has been marked as '.$shippedText.'.', h($id)));
+			return $this->redirect(array('action' => 'manage_overview'));
 		}
 		
 		public function switch_payed($id = null){
@@ -170,6 +197,33 @@
 				$this->Session->setFlash(__("You don't have access to this part of the website. Try logging out and back in."));
 				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
 			}
+			
+			if(!$id)
+				throw new NotFoundException( __( 'Invalid order'));
+				
+			if(!$this->request->is('post'))
+				throw new MethodNotAllowedException(__('Please use a post.'));
+				
+			$purchase = $this->Purchase->findById($id);
+			
+			if(!$purchase)
+				throw new NotFoundException( __( 'Invalid order'));
+			
+			$payed = false;
+			$payedText = "not payed yet";
+			if(!$purchase['Purchase']['payed']){
+				$payed = true;
+				$payedText = "payed";
+			}
+			
+			$this->Purchase->id = $id;
+			
+			$this->Purchase->set('payed', $payed);
+			
+			$this->Purchase->save($this->Purchase->data, false, array('payed'));
+			
+			$this->Session->setFlash(__('The order with id %s has been marked as '.$payedText.'.', h($id)));
+			return $this->redirect(array('action' => 'manage_overview'));
 		}
 		
 		public function view($id = null){
