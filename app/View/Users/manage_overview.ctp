@@ -10,14 +10,16 @@
 		<?php echo "<p>".$this->Html->link($this->Html->image('glyphicons/glyphicons_006_user_add.png', array('alt' => 'Add user', 'class' => 'glyphicon')).' '.__('Add user'), array('controller' => 'users', 'action' => 'add'), array('escape' => false))."</p>"; ?>
 		<table class="admintable">
 			<thead>
-				<th data-sort="int"><?php echo __('ID'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Username'); ?></th>
-				<th data-sort="string-ins"><?php echo __('First name'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Last name'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Email'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Is admin'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Last modified'); ?></th>
-				<th><?php echo __('Actions'); ?></th>
+				<tr>
+					<th data-sort="int"><?php echo __('ID'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Username'); ?></th>
+					<th data-sort="string-ins"><?php echo __('First name'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Last name'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Email'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Is admin'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Last modified'); ?></th>
+					<th><?php echo __('Actions'); ?></th>
+				</tr>
 			</thead>
 			<tbody>
 				<?php

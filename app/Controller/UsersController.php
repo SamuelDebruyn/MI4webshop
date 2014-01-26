@@ -11,7 +11,7 @@
 		}
 		
 		public function password_reset(){
-			$this->set('title_for_layout', __('Reset your password'));
+			$this->set('title_for_layout', __('reset your password'));
 			if($this->Auth->loggedIn())
 				return $this->redirect(array('controller' => 'users', 'action' => 'home'));
 			

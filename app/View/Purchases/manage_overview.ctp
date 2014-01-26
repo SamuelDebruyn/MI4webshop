@@ -10,12 +10,14 @@
 	<section>
 		<table class="admintable">
 			<thead>
-				<th data-sort="int"><?php echo __('ID'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Time modified'); ?></th>
-				<th data-sort="string-ins"><?php echo __('User'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Payed'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Shipped'); ?></th>
-				<th><?php echo __('Actions'); ?></th>
+				<tr>
+					<th data-sort="int"><?php echo __('ID'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Time modified'); ?></th>
+					<th data-sort="string-ins"><?php echo __('User'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Payed'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Shipped'); ?></th>
+					<th><?php echo __('Actions'); ?></th>
+				</tr>
 			</thead>
 			<tbody>
 				<?php

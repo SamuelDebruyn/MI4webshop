@@ -8,18 +8,17 @@
 	
 	echo $this->Html->docType("html5");
 ?>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js" lang="en">
 	<!--<![endif]-->
 	<!--[if IE]><![endif]-->
 	<head>
 		<?php echo $this -> Html -> charset(); ?>
 		<title><?php echo $siteTitle.": ".$title_for_layout; ?></title>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width" />
 		<?php
 			echo $this -> fetch('meta');
 			echo $this -> fetch('css');

@@ -3,6 +3,7 @@
         <FilesMatch "\.(gif|ico|jpe?g|png|svg|svgz|webp)$">
             SetEnvIf Origin ":" IS_CORS
             Header set Access-Control-Allow-Origin "*" env=IS_CORS
+			Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
         </FilesMatch>
     </IfModule>
 </IfModule>

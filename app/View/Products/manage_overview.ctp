@@ -10,12 +10,14 @@
 		<?php echo "<p>".$this->Html->link($this->Html->image('glyphicons/glyphicons_190_circle_plus.png', array('alt' => 'Add product', 'class' => 'glyphicon')).' '.__('Add product'), array('controller' => 'products', 'action' => 'add'), array('escape' => false))."</p>"; ?>
 		<table class="admintable">
 			<thead>
-				<th data-sort="int"><?php echo __('ID'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Title'); ?></th>
-				<th data-sort="string-ins"><?php echo __('Category'); ?></th>
-				<th data-sort="float"><?php echo __('Price in ').'<abbr title="EUR">€</abbr>'; ?></th>
-				<th data-sort="int"><?php echo __('Stock'); ?></th>
-				<th><?php echo __('Actions'); ?></th>
+				<tr>
+					<th data-sort="int"><?php echo __('ID'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Title'); ?></th>
+					<th data-sort="string-ins"><?php echo __('Category'); ?></th>
+					<th data-sort="float"><?php echo __('Price in ').'<abbr title="EUR">€</abbr>'; ?></th>
+					<th data-sort="int"><?php echo __('Stock'); ?></th>
+					<th><?php echo __('Actions'); ?></th>
+				</tr>
 			</thead>
 			<tbody>
 				<?php

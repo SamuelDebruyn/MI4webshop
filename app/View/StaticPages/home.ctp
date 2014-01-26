@@ -7,7 +7,7 @@
 		<ul>
 	<?php
 	foreach ($categories as $category) {
-		echo "<li>" . $this -> Html -> link($category['Category']['title'], array('controller' => 'categories', 'action' => 'view', $category['Category']['id'])) . "</li>" . $category['Category']['description'];
+		echo "<li>" . $this -> Html -> link($category['Category']['title'], array('controller' => 'categories', 'action' => 'view', $category['Category']['id'])) . "<span><br/>" . $category['Category']['description']."</span></li>";
 	}
 	?>
 </ul>
