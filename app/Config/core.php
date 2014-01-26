@@ -16,8 +16,8 @@
 	
 	Configure::write('debug', 2);
 	Configure::write('App.fullBaseUrl', 'http://webshop.sa.muel.be');
-	Configure::write('Security.salt', 'ACRMpebWCWS)@PxCcaJagJ^gjBvAF)-3EgfRAA1r');
-	Configure::write('Security.cipherSeed', '86928445294906373168045791761545');
+	Configure::write('Security.salt', 'HIDDEN');
+	Configure::write('Security.cipherSeed', 'HIDDEN');
 		
 	// ------------------------------------------------------------- //
 	
