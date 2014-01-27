@@ -1,7 +1,21 @@
 # webshop
 
-Deze webshop werd ontwikkeld als opdracht voor het vak Mobiel &amp; Internet 4 door [Samuel Debruyn](http://sa.muel.be).
+Deze webshop werd ontwikkeld als opdracht voor het vak Mobiel & Internet 4 door [Samuel Debruyn](http://sa.muel.be).
 De webshop is beschikbaar op [mijn webserver](http://webshop.sa.muel.be).
+
+## Features
+
+* responsive design: werkt op alle schermformaten (getest op iPad 2, Asus Slider, Nexus 5, Nexus 4, Galaxy Nexus, Nexus S, iPhone 4S, Asus X53Sv, MacBook Pro, telkens in Google Chrome, Mozilla Firefox en Apple Safari) - Sommige administratieve taken kunnen enkel op grote schermen uitgevoerd worden zonder veel te moeten scrollen.
+* cross-browser: Werkt in alle moderne browsers en Internet Explorer 7 of nieuwer (met CSS-hacks voor IE 7)
+* r-mails bij registratie, bestelling, betaling van bestelling, verzending van bestelling en wachtwoord vergeten
+* valid HTML 5
+* valid CSS 3 (met uitzondering van [IE7 hacks](http://stackoverflow.com/questions/4563651/what-does-an-asterisk-do-in-a-css-property-name))
+* valid i18n (W3C internationalization validator)
+* MobileOK (85% op W3C MobileOK checker)
+* snelle laadtijden door minified CSS en JavaScript
+* gestructureerde code dankzij MVC-structuur
+* veilig: wachtwoorden worden geëncrypteerd opgeslagen met een security salt en beschermd tegen SQL injecties
+* gebruik van cache om schaalbaarheid te verbeteren
 
 ## Installatie
 
