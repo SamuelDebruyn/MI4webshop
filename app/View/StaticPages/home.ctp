@@ -15,5 +15,5 @@
 </article>
 <aside>
 	<p>This website uses cookies, has no terms of service and no privacy policy. This is a demo, not a real webshop.</p>
-	<p>The complete source code of this project and more documentation is available at <?php echo $this->Html->link(__('my GitHub repository'), 'https://github.com/SamuelDebruyn/webshop/tree/v1.0.1'); ?>.</p>
+	<p>The complete source code of this project and more documentation is available at <?php echo $this->Html->link(__('my GitHub repository'), 'https://github.com/SamuelDebruyn/webshop/tree/v1.0.2'); ?>.</p>
 </aside>
