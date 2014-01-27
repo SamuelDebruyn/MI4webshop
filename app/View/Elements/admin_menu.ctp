@@ -5,5 +5,6 @@
 		<li><?php echo $this -> Html -> link('Manage categories', array('controller' => 'categories', 'action' => 'manage_overview')); ?></li>
 		<li><?php echo $this -> Html -> link('Manage products', array('controller' => 'products', 'action' => 'manage_overview')); ?></li>
 		<li><?php echo $this -> Html -> link('Manage orders', array('controller' => 'purchases', 'action' => 'manage_overview')); ?></li>
+		<li><?php echo $this -> Html -> link('View ERD', array('controller' => 'static pages', 'action' => 'ERD')); ?></li>
 	</ul>
 </aside>

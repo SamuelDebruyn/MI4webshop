@@ -6,6 +6,10 @@
 			$this->Auth->allow();
 			$this->uses[] = 'Category';
 		}
+		
+		public function ERD(){
+			$this->set('title_for_layout', __('ERD'));
+		}
     	
 		public function home(){
 			$this->set('categories', $this->Category->find('all', array(
