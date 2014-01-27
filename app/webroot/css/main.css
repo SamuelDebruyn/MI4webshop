@@ -31,9 +31,9 @@ body {
 
 hr {
     display: block;
-    height: 0.06em;
+    height: 0.1em;
     border: 0;
-    border-top: 0.06em solid #ccc;
+    border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
 }
@@ -196,7 +196,7 @@ fieldset legend{
 }
 
 fieldset{
-	border: 0.06em solid black;
+	border: 1px solid black;
 	padding: 10px 10px 10px 10px;
 }
 
@@ -233,7 +233,7 @@ label{
 }
 
 .r-tabs .r-tabs-nav li:not(:last-child){
-	border-right: solid white 0.06em;
+	border-right: solid white 1px;
 	padding-right: 5px;
 }
 
@@ -284,7 +284,7 @@ label{
 }
 
 .admintable th, .admintable td{
-	border: 0.06em solid #999;
+	border: 1px solid #999;
 	font-size: 80%;
 	padding: 5px 5px 5px 5px;
 	margin: 0 0 0 0;
@@ -427,12 +427,12 @@ th[data-sort]{
 .visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);
-    height: 0.06em;
-    margin: -0.06em;
+    height: 1px;
+    margin: -1px;
     overflow: hidden;
     padding: 0;
     position: absolute;
-    width: 0.06em;
+    width: 1px;
 }
 
 .visuallyhidden.focusable:active,
@@ -500,7 +500,7 @@ th[data-sort]{
 
     pre,
     blockquote {
-        border: 0.06em solid #999;
+        border: 1px solid #999;
         page-break-inside: avoid;
     }
 
