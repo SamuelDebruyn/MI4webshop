@@ -1,3 +1,5 @@
+A webshop in CakePHP I made for a school project.
+
 # webshop
 
 Deze webshop werd ontwikkeld als opdracht voor het vak Mobiel & Internet 4 door [Samuel Debruyn](http://sa.muel.be).
